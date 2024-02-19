@@ -1,0 +1,57 @@
+// #52C41A зеленый
+// #ebeef3 серый фон 
+
+.headerLine {
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    display: flex;
+    padding: 0 20px;
+
+    &__startMenu, &__signIn, &__signUp {
+        align-self: center;
+    }
+    &__buttonMenu, &__buttonSignIn {
+        border: 0;
+        align-self: center;
+        padding: 0;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: 0em;
+        white-space: nowrap;
+        background-color: white;
+    }
+    &__signIn {
+        margin-left: auto;
+    }
+    &__signUp {
+        margin-left: 25px;
+    }
+    &__buttonsignUp {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid black;
+        border-color: #52C41A;
+        background-color: #fff;
+        color: #52C41A;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: 0em;
+        white-space: nowrap;
+    }
+    &__buttonMenu:hover, &__buttonMenu:focus, &__buttonMenu:active,
+    &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active, {
+        border: 1px solid #52C41A;
+        border-radius: 5px;
+        padding: 5px;
+        scale: 1.1;
+        color: #52c41a;
+        transition: 0.1s;
+    }
+    &__buttonsignUp:hover, &__buttonsignUp:focus, &__buttonsignUp:active {
+        border-color: #1890FF;
+        color: #1890FF;
+        transform: 0.1s;
+    }
+}
+

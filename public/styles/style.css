@@ -1,0 +1,18 @@
+@font-face {
+    font-family: "Inter UI";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../src/assets/fonts/Inter-Regular.ttf");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter UI";
+}
+
+*,*::before, *::after {
+    box-sizing: inherit;
+    font-family: "Inter UI";
+}
