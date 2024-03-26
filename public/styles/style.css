@@ -10,6 +10,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "Inter UI";
+    background-color: #ebeef3;
 }
 
 *,*::before, *::after {

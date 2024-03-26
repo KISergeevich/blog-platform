@@ -1,0 +1,95 @@
+@font-face {
+    font-family: "Inter UI";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../assets/fonts/Inter-Regular.ttf");
+}
+
+.articleList {
+    font-family: 'Inter UI';
+    width: 938px;
+    min-height: 140px;
+    background-color: white;
+    box-shadow: 0px 4px 12px 0px #00000026;
+    padding: 10px 10px 15px 10px;
+    
+    &__post {
+        display: flex;
+        height: auto;
+    }
+    &__informationBlock {
+        display: flex;
+        flex-direction: column;
+    }
+    &__titlePost {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    &__title {
+        font-size: 20px;
+        line-height: 28px;
+        text-align: left;
+        color: #1890FF;
+        margin-right: 10px;
+    }
+
+    &__button {
+        width: 16px;
+        height: 16px;
+        border: none; outline: none;
+        background-color: white;
+        padding: 0;
+        display: flex;
+    }
+    &__span {
+    font-size: 12px;
+    line-height: 22px;
+    text-align: left;
+    margin-left: 5px;
+    }
+
+    &__tagPost {
+        align-self: flex-start;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.52px;
+        text-align: left;
+        border: 1px solid black;
+    }
+    &__textPost {
+        font-size: 12px;
+        line-height: 22px;
+        text-align: left;
+        max-width: 90%;
+        flex-wrap: nowrap;
+    }
+
+    &__userBlock {
+        display: flex;
+    }
+    &____nameBlock {
+        width: auto;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    &__name {
+        font-size: 18px;
+        line-height: 28px;
+        text-align: left;
+        white-space: nowrap;
+    }
+    &__data {
+        color: #00000080;
+        font-size: 12px;
+        line-height: 22px;
+        text-align: left;
+        white-space: nowrap;
+    }
+    &__icon{
+        height: 46px;
+        width: 46px;
+        margin-left: 10px;
+    }
+}
