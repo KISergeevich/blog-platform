@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './components/error-page/error-page'
 import App from './components/app/App'
 import Article from './components/acrticle/acrticle'
-import TitleList from './components/title-list/title-list'
+import ArticleList from './components/article-list/article-list'
 
 const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <TitleList /> },
+      { index: true, element: <ArticleList /> },
       {
         path: 'articles/:slug',
         element: <Article />,
