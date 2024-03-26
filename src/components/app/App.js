@@ -1,7 +1,7 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 import HeaderLine from '../header-line/header-line'
-import TitleList from '../title-list/title-list'
 
 // import classes from './app.modile.scss'
 
@@ -9,7 +9,7 @@ export default function App() {
   return (
     <>
       <HeaderLine />
-      <TitleList />
+      <Outlet />
     </>
 
     //   <BlockRegistration/>
