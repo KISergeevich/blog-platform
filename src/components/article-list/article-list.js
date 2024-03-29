@@ -32,8 +32,8 @@ export default function ArticleList() {
     return <ArticleItem article={item} key={item.slug} />
   })
   return (
-    <div className={classes.ArticleList}>
-      <div>{articlesComponent}</div>
+    <div className={classes.articleList}>
+      <div className={classes.articleList}>{articlesComponent}</div>
       <Pagination
         className="pagination"
         defaultCurrent={1}

@@ -1,5 +1,11 @@
 .articleList {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    width: 100%;
+    max-width: 938px;
+    &__list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 }

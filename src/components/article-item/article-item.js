@@ -1,4 +1,5 @@
 import React from 'react'
+import { format } from 'date-fns'
 
 import icon from '../../assets/img/icon.png'
 import grayHeart from '../../assets/img/nonliked.png'
@@ -6,6 +7,28 @@ import grayHeart from '../../assets/img/nonliked.png'
 import classes from './article-item.module.scss'
 
 export default function ArticleItem({ article }) {
+  const { tagList } = article
+  let sortTags
+  if (tagList.length > 0) {
+    sortTags = tagList.map((tag) => {
+      return (
+        <div key={`${tag}+${Math.round(Math.random() * 100)}`} className={classes.articleItem__tagPost}>
+          {tag}
+        </div>
+      )
+    })
+  } else {
+    sortTags = <span className={classes.articleItem__noTags}>This post has not tags</span>
+  }
+
+  const timeCreate = format(new Date(article.createdAt), 'MMMM d, y')
+  let avatar
+  if (article.author.image.length > 0) {
+    avatar = article.author.image
+  } else {
+    avatar = icon
+  }
+
   return (
     <div className={classes.articleItem}>
       <div className={classes.articleItem__post}>
@@ -17,21 +40,17 @@ export default function ArticleItem({ article }) {
                 <img src={grayHeart} alt="notLiked" className={classes.articleItem__like} />
               </button>
             </form>
-            <span className={classes.articleItem__span}>12</span>
+            <span className={classes.articleItem__span}>{article.favoritesCount}</span>
           </div>
-          <div className={classes.articleItem__tagPost}>Tag1</div>
-          <div className={classes.articleItem__textPost}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </div>
+          <div className={classes.articleItem__tagList}>{sortTags}</div>
+          <div className={classes.articleItem__textPost}>{article.body}</div>
         </div>
         <div className={classes.articleItem__userBlock}>
           <div className={classes.articleItem__nameBlock}>
-            <div className={classes.articleItem__name}>John Doe</div>
-            <div className={classes.articleItem__data}>March 5 , 2020</div>
+            <div className={classes.articleItem__name}>{article.author.username}</div>
+            <div className={classes.articleItem__data}>{timeCreate}</div>
           </div>
-          <img src={icon} alt="icon-logo" className={classes.articleItem__icon} />
+          <img src={avatar} alt="icon-logo" className={classes.articleItem__icon} />
         </div>
       </div>
     </div>

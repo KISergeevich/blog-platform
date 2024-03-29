@@ -7,31 +7,38 @@
 
 .articleItem {
     font-family: 'Inter UI';
-    width: 938px;
-    min-height: 140px;
+    min-width: 400px;
+    height: 140px;
     background-color: white;
     box-shadow: 0px 4px 12px 0px #00000026;
     padding: 10px 10px 15px 10px;
-    
+    margin-bottom: 15px;
     &__post {
         display: flex;
         height: auto;
+        justify-content: space-between;
+        gap: 15px;
     }
     &__informationBlock {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
+        min-width: 0;
     }
     &__titlePost {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        gap: 5px;
     }
     &__title {
         font-size: 20px;
         line-height: 28px;
         text-align: left;
         color: #1890FF;
-        margin-right: 10px;
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     &__button {
@@ -48,7 +55,11 @@
     text-align: left;
     margin-left: 5px;
     }
-
+    &__tagList {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+    }
     &__tagPost {
         align-self: flex-start;
         font-size: 12px;
@@ -56,29 +67,51 @@
         line-height: 14.52px;
         text-align: left;
         border: 1px solid black;
+        margin-right: 10px;
+        padding: 3px;
+        overflow-x: hidden;
+        max-width: 60px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        flex-shrink: 0;
+    }
+    &__noTags {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.52px;
+        color: silver
     }
     &__textPost {
         font-size: 12px;
         line-height: 22px;
         text-align: left;
-        max-width: 90%;
-        flex-wrap: nowrap;
+        white-space: pre-wrap;
+        overflow-x: hidden;
+        text-overflow: hidden;
+        max-height: 66px;
+        overflow-y: hidden;
+        word-break: break-all;
     }
 
     &__userBlock {
         display: flex;
+        flex-shrink: 0;
+        flex-grow: 0;
     }
     &____nameBlock {
         width: auto;
         height: auto;
         display: flex;
         flex-direction: column;
+        
     }
     &__name {
         font-size: 18px;
         line-height: 28px;
         text-align: left;
         white-space: nowrap;
+        display: flex;
+        justify-content: flex-end;
     }
     &__data {
         color: #00000080;
@@ -86,6 +119,8 @@
         line-height: 22px;
         text-align: left;
         white-space: nowrap;
+        display: flex;
+        justify-content: flex-end;
     }
     &__icon{
         height: 46px;
