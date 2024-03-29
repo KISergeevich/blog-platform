@@ -1,5 +1,6 @@
 import React from 'react'
 import { format } from 'date-fns'
+import Markdown from 'markdown-to-jsx'
 
 import icon from '../../assets/img/icon.png'
 import grayHeart from '../../assets/img/nonliked.png'
@@ -43,7 +44,9 @@ export default function ArticleItem({ article }) {
             <span className={classes.articleItem__span}>{article.favoritesCount}</span>
           </div>
           <div className={classes.articleItem__tagList}>{sortTags}</div>
-          <div className={classes.articleItem__textPost}>{article.body}</div>
+          <div className={classes.articleItem__textPost}>
+            <Markdown>{article.body}</Markdown>
+          </div>
         </div>
         <div className={classes.articleItem__userBlock}>
           <div className={classes.articleItem__nameBlock}>

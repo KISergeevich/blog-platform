@@ -35,7 +35,7 @@ export default function ArticleList() {
     <div className={classes.articleList}>
       <div className={classes.articleList}>{articlesComponent}</div>
       <Pagination
-        className="pagination"
+        className={classes.articleList__pagination}
         defaultCurrent={1}
         total={total}
         onChange={(p) => {
