@@ -8,6 +8,13 @@
         flex-direction: column;
         width: 100%;
     }
+    &__spinBlock {
+        display: flex;
+        flex-direction: column;
+    }
+    &__spin {
+        margin: 30px auto;
+    }
     &__pagination {
         display: flex;
         justify-content: center;

@@ -18,6 +18,7 @@ const articleSlice = createSlice({
     selectTotal: (state) => state.total,
     selectPageNumber: (state) => state.pageNumber,
     selectPageSize: (state) => state.pageSize,
+    selectError: (state) => state.error,
     selectStatus: (state) => state.status,
   },
   reducers: {
@@ -53,5 +54,6 @@ const articleSlice = createSlice({
 })
 
 export const { changeArticles, changePageNumber } = articleSlice.actions
-export const { selectArticles, selectTotal, selectPageNumber, selectPageSize, selectStatus } = articleSlice.selectors
+export const { selectError, selectArticles, selectTotal, selectPageNumber, selectPageSize, selectStatus } =
+  articleSlice.selectors
 export default articleSlice.reducer

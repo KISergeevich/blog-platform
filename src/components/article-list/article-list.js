@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Pagination } from 'antd'
+import { Alert, Pagination, Spin } from 'antd'
 
 import ArticleItem from '../article-item/article-item'
 import fetchArticles from '../../redux/fetch-articles-thunk'
 import {
   changePageNumber,
   selectArticles,
+  selectError,
   selectPageNumber,
   selectPageSize,
   selectStatus,
@@ -23,6 +24,7 @@ export default function ArticleList() {
   const pageSize = useSelector(selectPageSize)
   const articles = useSelector(selectArticles)
   const total = useSelector(selectTotal)
+  const err = useSelector(selectError)
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchArticles({ pageNumber, pageSize }))
@@ -31,22 +33,32 @@ export default function ArticleList() {
   const articlesComponent = articles.map((item) => {
     return <ArticleItem article={item} key={item.slug} />
   })
-  return (
-    <div className={classes.articleList}>
-      <div className={classes.articleList}>{articlesComponent}</div>
-      <Pagination
-        className={classes.articleList__pagination}
-        defaultCurrent={1}
-        total={total}
-        onChange={(p) => {
-          dispatch(fetchArticles({ pageNumber: p, pageSize }))
-          dispatch(changePageNumber(p))
-        }}
-        hideOnSinglePage
-        pageSize={pageSize}
-        current={pageNumber}
-        showSizeChanger={false}
-      />
-    </div>
-  )
+  if (status === 'loading') {
+    return (
+      <div className={classes.spinBlock}>
+        <Spin size="large" className={classes.spin} />
+      </div>
+    )
+  }
+  if (status === 'succeeded') {
+    return (
+      <div className={classes.articleList}>
+        <div className={classes.articleList}>{articlesComponent}</div>
+        <Pagination
+          className={classes.articleList__pagination}
+          defaultCurrent={1}
+          total={total}
+          onChange={(p) => {
+            dispatch(fetchArticles({ pageNumber: p, pageSize }))
+            dispatch(changePageNumber(p))
+          }}
+          hideOnSinglePage
+          pageSize={pageSize}
+          current={pageNumber}
+          showSizeChanger={false}
+        />
+      </div>
+    )
+  }
+  if (status === 'failed') return <Alert className={classes.error} message={err} type="error" showIcon />
 }
