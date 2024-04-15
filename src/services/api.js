@@ -9,7 +9,7 @@ export default class Api {
         accept: 'application/json',
       },
     }
-    const response = await fetch(`${this.baseURL}/articles?offset=${offset}&limit=${pageSize}`, options)
+    const response = await fetch(`${this.baseURL}articles?offset=${offset}&limit=${pageSize}`, options)
     if (response.ok) {
       const result = await response.json()
       return {
@@ -27,7 +27,7 @@ export default class Api {
         accept: 'application/json',
       },
     }
-    const response = await fetch(`${this.baseURL}/articles/${slug}`, options)
+    const response = await fetch(`${this.baseURL}articles/${slug}`, options)
     if (response.ok) {
       const result = await response.json()
       return result

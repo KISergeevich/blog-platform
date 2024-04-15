@@ -1,15 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 import classes from './header-line.module.scss'
 
 export default function HeaderLine() {
   return (
     <div className={classes.headerLine}>
-      <form className={classes.headerLine__startMenu}>
-        <button className={classes.headerLine__buttonMenu} type="button">
-          Realworld Blog
-        </button>
-      </form>
+      <Link to="/articles" className={classes.headerLine__buttonMenu}>
+        Realworld Blog
+      </Link>
+
       <form className={classes.headerLine__signIn}>
         <button className={classes.headerLine__buttonSignIn} type="button">
           Sign In

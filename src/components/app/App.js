@@ -9,15 +9,14 @@ import classes from './app.module.scss'
 
 export default function App() {
   return (
-    <>
+    <Router>
       <HeaderLine />
-      <Router>
-        <div className={classes.app}>
-          <Route path="/" exact component={ArticleList} />
-          <Route path="/articles/:slug" component={Article} />
-        </div>
-      </Router>
-    </>
+      <div className={classes.app}>
+        <Route path="/" exact component={ArticleList} />
+        <Route path="/articles" exact component={ArticleList} />
+        <Route path="/articles/:slug" component={Article} />
+      </div>
+    </Router>
 
     //   <BlockRegistration/>
     //   <BlockSignIn/>
