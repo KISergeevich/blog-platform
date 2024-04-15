@@ -66,39 +66,4 @@
         overflow-y: hidden;
         word-break: break-all;
     }
-
-    &__userBlock {
-        display: flex;
-        flex-shrink: 0;
-        flex-grow: 0;
-    }
-    &____nameBlock {
-        width: auto;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        
-    }
-    &__name {
-        font-size: 18px;
-        line-height: 28px;
-        text-align: left;
-        white-space: nowrap;
-        display: flex;
-        justify-content: flex-end;
-    }
-    &__data {
-        color: #00000080;
-        font-size: 12px;
-        line-height: 22px;
-        text-align: left;
-        white-space: nowrap;
-        display: flex;
-        justify-content: flex-end;
-    }
-    &__icon{
-        height: 46px;
-        width: 46px;
-        margin-left: 10px;
-    }
 }
