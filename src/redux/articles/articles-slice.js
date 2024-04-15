@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import fetchArticles from './fetch-articles-thunk'
 
-const articleSlice = createSlice({
+const articlesSlice = createSlice({
   name: 'articles',
   initialState: {
     articles: [],
@@ -53,7 +53,7 @@ const articleSlice = createSlice({
   },
 })
 
-export const { changeArticles, changePageNumber } = articleSlice.actions
+export const { changeArticles, changePageNumber } = articlesSlice.actions
 export const { selectError, selectArticles, selectTotal, selectPageNumber, selectPageSize, selectStatus } =
-  articleSlice.selectors
-export default articleSlice.reducer
+  articlesSlice.selectors
+export default articlesSlice.reducer

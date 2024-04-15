@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Alert, Pagination, Spin } from 'antd'
 
 import ArticleItem from '../article-item/article-item'
-import fetchArticles from '../../redux/fetch-articles-thunk'
+import fetchArticles from '../../redux/articles/fetch-articles-thunk'
 import {
   changePageNumber,
   selectArticles,
@@ -12,7 +12,7 @@ import {
   selectPageSize,
   selectStatus,
   selectTotal,
-} from '../../redux/article-slice'
+} from '../../redux/articles/articles-slice'
 
 import classes from './article-list.module.scss'
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import Markdown from 'markdown-to-jsx'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 import grayHeart from '../../assets/img/nonliked.png'
 import Tags from '../tags/tags'
@@ -16,7 +17,9 @@ export default function ArticleItem({ article }) {
       <div className={classes.articleItem__post}>
         <div className={classes.articleItem__informationBlock}>
           <div className={classes.articleItem__titlePost}>
-            <div className={classes.articleItem__title}>{article.title}</div>
+            <Link to={`/articles/${article.slug}`} className={classes.articleItem__title}>
+              {article.title}
+            </Link>
             <form className={classes.articleItem__form}>
               <button className={classes.articleItem__button} type="button">
                 <img src={grayHeart} alt="notLiked" className={classes.articleItem__like} />

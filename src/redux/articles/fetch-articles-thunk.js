@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import Api from '../services/api'
+import Api from '../../services/api'
 
 const fetchArticles = createAsyncThunk('articles/fetchArticles', async (payload) => {
   const api = new Api()
