@@ -45,7 +45,7 @@ export default function ArticleItem({ article }) {
           </div>
           <div className={classes.articleItem__tagList}>{sortTags}</div>
           <div className={classes.articleItem__textPost}>
-            <Markdown>{article.body}</Markdown>
+            <Markdown>{article.description}</Markdown>
           </div>
         </div>
         <div className={classes.articleItem__userBlock}>

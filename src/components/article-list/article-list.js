@@ -43,7 +43,7 @@ export default function ArticleList() {
   if (status === 'succeeded') {
     return (
       <div className={classes.articleList}>
-        <div className={classes.articleList}>{articlesComponent}</div>
+        <div className={classes.articleList__list}>{articlesComponent}</div>
         <Pagination
           className={classes.articleList__pagination}
           defaultCurrent={1}
