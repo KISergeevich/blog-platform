@@ -4,23 +4,12 @@ import Markdown from 'markdown-to-jsx'
 
 import icon from '../../assets/img/icon.png'
 import grayHeart from '../../assets/img/nonliked.png'
+import Tags from '../tags/tags'
 
 import classes from './article-item.module.scss'
 
 export default function ArticleItem({ article }) {
   const { tagList } = article
-  let sortTags
-  if (tagList.length > 0) {
-    sortTags = tagList.map((tag) => {
-      return (
-        <div key={`${tag}+${Math.round(Math.random() * 100)}`} className={classes.articleItem__tagPost}>
-          {tag}
-        </div>
-      )
-    })
-  } else {
-    sortTags = <span className={classes.articleItem__noTags}>This post has not tags</span>
-  }
 
   const timeCreate = format(new Date(article.createdAt), 'MMMM d, y')
   let avatar
@@ -43,7 +32,7 @@ export default function ArticleItem({ article }) {
             </form>
             <span className={classes.articleItem__span}>{article.favoritesCount}</span>
           </div>
-          <div className={classes.articleItem__tagList}>{sortTags}</div>
+          <Tags tagList={tagList} />
           <div className={classes.articleItem__textPost}>
             <Markdown>{article.description}</Markdown>
           </div>

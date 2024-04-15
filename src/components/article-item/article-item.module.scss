@@ -55,32 +55,6 @@
     text-align: left;
     margin-left: 5px;
     }
-    &__tagList {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow: hidden;
-    }
-    &__tagPost {
-        align-self: flex-start;
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 14.52px;
-        text-align: left;
-        border: 1px solid black;
-        margin-right: 10px;
-        padding: 3px;
-        overflow-x: hidden;
-        max-width: 60px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        flex-shrink: 0;
-    }
-    &__noTags {
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 14.52px;
-        color: silver
-    }
     &__textPost {
         font-size: 12px;
         line-height: 22px;
