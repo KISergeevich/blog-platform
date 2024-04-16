@@ -10,8 +10,11 @@ import classes from './app.module.scss'
 export default function App() {
   return (
     <Router>
-      <HeaderLine />
-      <div className={classes.app}>
+      <div className={classes.app__header}>
+        <HeaderLine />
+      </div>
+
+      <div className={classes.app__body}>
         <Route path="/" exact component={ArticleList} />
         <Route path="/articles" exact component={ArticleList} />
         <Route path="/articles/:slug" component={Article} />

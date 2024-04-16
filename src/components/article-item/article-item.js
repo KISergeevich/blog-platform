@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 import grayHeart from '../../assets/img/nonliked.png'
 import Tags from '../tags/tags'
-import AuthorAvatar from '../authorAvatar/authorAvatar'
+import AuthorAvatar from '../author-avatar/author-avatar'
 
 import classes from './article-item.module.scss'
 

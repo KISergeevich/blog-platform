@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 
 import icon from '../../assets/img/icon.png'
 
-import classes from './authorAvatar.module.scss'
+import classes from './author-avatar.module.scss'
 
 export default function AuthorAvatar({ author, postDate }) {
   const timeCreate = format(new Date(postDate), 'MMMM d, y')

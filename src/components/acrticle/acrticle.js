@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { Alert, Spin } from 'antd'
 
+import AuthorAvatar from '../author-avatar/author-avatar'
 import fetchArticle from '../../redux/article/fetch-article-thunk'
 import { selectArticle, selectError, selectStatus } from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
@@ -16,6 +17,7 @@ export default function Article() {
   const article = useSelector(selectArticle)
   const status = useSelector(selectStatus)
   const err = useSelector(selectError)
+  const { author, createdAt } = article
 
   useEffect(() => {
     if (status === 'idle') {
@@ -42,10 +44,7 @@ export default function Article() {
               <div className={classes.article__description} />
             </div>
             <div className={classes.articleItem__userBlock}>
-              <div className={classes.articleItem__nameBlock}>
-                <div className={classes.articleItem__name} />
-                <div className={classes.articleItem__data} />
-              </div>
+              <AuthorAvatar author={author} postDate={createdAt} />
             </div>
           </div>
           <div className={classes.article__text} />
