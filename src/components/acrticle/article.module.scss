@@ -1,0 +1,55 @@
+.article {
+    display: flex;
+    width: 807px;
+    min-height: 938px;
+    background-color: white;
+    flex-direction: column;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+
+
+    &__titlePost {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+    }
+    &__title {
+        font-size: 20px;
+        line-height: 28px;
+        text-align: left;
+        color: #1890FF;
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &__button {
+        width: 16px;
+        height: 16px;
+        border: none; outline: none;
+        background-color: white;
+        padding: 0;
+        display: flex;
+    }
+    &__span {
+        font-size: 12px;
+        line-height: 22px;
+        text-align: left;
+        margin-left: 5px;
+    }
+
+   &__description{
+        font-family: 'Inter UI';
+        font-size: 12px;
+        line-height: 22px;
+        text-align: left;
+        color: #00000080;
+        margin-top: 15px;
+        max-width: 682px;
+    }
+
+    &__header {
+        display: flex;
+    }
+}

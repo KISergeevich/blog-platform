@@ -2,7 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { Alert, Spin } from 'antd'
+import Markdown from 'markdown-to-jsx'
 
+import grayHeart from '../../assets/img/nonliked.png'
 import AuthorAvatar from '../author-avatar/author-avatar'
 import fetchArticle from '../../redux/article/fetch-article-thunk'
 import { selectArticle, selectError, selectStatus } from '../../redux/article/article-slice'
@@ -17,7 +19,6 @@ export default function Article() {
   const article = useSelector(selectArticle)
   const status = useSelector(selectStatus)
   const err = useSelector(selectError)
-  const { author, createdAt } = article
 
   useEffect(() => {
     if (status === 'idle') {
@@ -32,24 +33,29 @@ export default function Article() {
     )
   }
   if (status === 'succeeded') {
-    const { tagList } = article
+    const { tagList, author, createdAt, title, description, body } = article
     return (
-      <>
-        <div>{slug}</div>
-        <div className={classes.article}>
-          <div className={classes.article__header}>
-            <div className={classes.article__aboutPost}>
-              <div className={classes.articleItem__titlePost} />
-              <Tags tagList={tagList} />
-              <div className={classes.article__description} />
+      <div className={classes.article}>
+        <div className={classes.article__header}>
+          <div className={classes.article__aboutPost}>
+            <div className={classes.article__titlePost}>
+              <div className={classes.article__title}>{title}</div>
+              <form className={classes.article__form}>
+                <button className={classes.article__button} type="button">
+                  <img src={grayHeart} alt="notLiked" className={classes.article__like} />
+                </button>
+              </form>
+              <span className={classes.articleItem__span}>{article.favoritesCount}</span>
             </div>
-            <div className={classes.articleItem__userBlock}>
-              <AuthorAvatar author={author} postDate={createdAt} />
-            </div>
+            <Tags tagList={tagList} />
+            <div className={classes.article__description}>{description}</div>
           </div>
-          <div className={classes.article__text} />
+          <div className={classes.articleItem__userBlock}>
+            <AuthorAvatar author={author} postDate={createdAt} />
+          </div>
         </div>
-      </>
+        <Markdown className={classes.article__text}>{body}</Markdown>
+      </div>
     )
   }
   if (status === 'failed') return <Alert className={classes.error} message={err} type="error" showIcon />
