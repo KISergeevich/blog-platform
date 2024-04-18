@@ -7,7 +7,7 @@ import Markdown from 'markdown-to-jsx'
 import grayHeart from '../../assets/img/nonliked.png'
 import AuthorAvatar from '../author-avatar/author-avatar'
 import fetchArticle from '../../redux/article/fetch-article-thunk'
-import { selectArticle, selectError, selectStatus } from '../../redux/article/article-slice'
+import { deleteStatus, selectArticle, selectError, selectStatus } from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
 
 import classes from './article.module.scss'
@@ -21,10 +21,14 @@ export default function Article() {
   const err = useSelector(selectError)
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchArticle(slug))
+    dispatch(fetchArticle(slug))
+
+    return () => {
+      dispatch(deleteStatus())
     }
-  }, [status, dispatch, slug])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   if (status === 'loading') {
     return (
       <div className={classes.spinBlock}>

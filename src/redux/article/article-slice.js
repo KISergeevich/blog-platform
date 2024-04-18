@@ -22,6 +22,12 @@ const articleSlice = createSlice({
         article: action.payload.article,
       }
     },
+    deleteStatus(state) {
+      return {
+        ...state,
+        status: 'idle',
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -40,6 +46,6 @@ const articleSlice = createSlice({
   },
 })
 
-export const { changeArticle } = articleSlice.actions
+export const { changeArticle, deleteStatus } = articleSlice.actions
 export const { selectArticle, selectStatus, selectError } = articleSlice.selectors
 export default articleSlice.reducer
