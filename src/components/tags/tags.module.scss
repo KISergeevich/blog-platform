@@ -1,8 +1,13 @@
 .tags {
-    &__tagList {
+    &__tagList::-webkit-scrollbar {
+        display: none;
+    }
+        &__tagList {    
         display: flex;
         flex-wrap: nowrap;
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: auto;
+        
     }
     &__tagPost {
         align-self: flex-start;

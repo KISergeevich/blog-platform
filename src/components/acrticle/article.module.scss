@@ -7,7 +7,9 @@
     padding: 20px 15px;
     margin-bottom: 20px;
 
-
+    &__aboutPost {
+        max-width: 530px;
+    }
     &__titlePost {
         display: flex;
         justify-content: flex-start;
@@ -19,11 +21,13 @@
         line-height: 28px;
         text-align: left;
         color: #1890FF;
-        overflow-x: hidden;
+        overflow-x: auto;
         white-space: nowrap;
-        text-overflow: ellipsis;
     }
 
+    &__title::-webkit-scrollbar {
+        display: none;
+    }
     &__button {
         width: 16px;
         height: 16px;
@@ -47,9 +51,19 @@
         color: #00000080;
         margin-top: 15px;
         max-width: 682px;
+        max-height: 70px;
+        overflow-wrap: break-word;
+        overflow-y: auto;
     }
-
+    &__description::-webkit-scrollbar {
+        display: none;
+    }
     &__header {
         display: flex;
+        justify-content: space-between;
+    }
+    &__text {
+        margin-top: 20px;
+        overflow-wrap: break-word;
     }
 }

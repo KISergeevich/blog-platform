@@ -28,11 +28,11 @@ export default function ArticleItem({ article }) {
             <span className={classes.articleItem__span}>{article.favoritesCount}</span>
           </div>
           <Tags tagList={tagList} />
-          <div className={classes.articleItem__textPost}>
-            <Markdown>{article.description}</Markdown>
-          </div>
         </div>
         <AuthorAvatar author={author} postDate={article.createdAt} />
+      </div>
+      <div className={classes.articleItem__textPost}>
+        <Markdown>{article.description}</Markdown>
       </div>
     </div>
   )

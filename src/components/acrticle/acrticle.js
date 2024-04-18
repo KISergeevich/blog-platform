@@ -48,12 +48,12 @@ export default function Article() {
               <span className={classes.articleItem__span}>{article.favoritesCount}</span>
             </div>
             <Tags tagList={tagList} />
-            <div className={classes.article__description}>{description}</div>
           </div>
-          <div className={classes.articleItem__userBlock}>
+          <div className={classes.article__userBlock}>
             <AuthorAvatar author={author} postDate={createdAt} />
           </div>
         </div>
+        <div className={classes.article__description}>{description}</div>
         <Markdown className={classes.article__text}>{body}</Markdown>
       </div>
     )
