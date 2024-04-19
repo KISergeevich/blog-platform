@@ -1,5 +1,8 @@
 // #52C41A зеленый
 // #ebeef3 серый фон 
+a {
+    text-decoration: none;
+}
 
 .headerLine {
     width: 100%;
@@ -39,7 +42,7 @@
         letter-spacing: 0em;
         white-space: nowrap;
     }
-    &__buttonMenu:hover, &__buttonMenu:focus, &__buttonMenu:active,
+    &__buttonMenu:hover, &__buttonMenu:focus, &__buttonMenu:active, &__buttonMenu:visited
     &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active, {
         border: 1px solid #52C41A;
         border-radius: 5px;
@@ -47,6 +50,7 @@
         scale: 1.1;
         color: #52c41a;
         transition: 0.1s;
+        
     }
     &__buttonsignUp:hover, &__buttonsignUp:focus, &__buttonsignUp:active {
         border-color: #1890FF;

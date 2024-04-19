@@ -10,16 +10,16 @@ export default function HeaderLine() {
         Realworld Blog
       </Link>
 
-      <form className={classes.headerLine__signIn}>
-        <button className={classes.headerLine__buttonSignIn} type="button">
+      <div className={classes.headerLine__signIn}>
+        <Link to="/sign-in" className={classes.headerLine__buttonSignIn}>
           Sign In
-        </button>
-      </form>
-      <form className={classes.headerLine__signUp}>
-        <button className={classes.headerLine__buttonsignUp} type="button">
+        </Link>
+      </div>
+      <div className={classes.headerLine__signUp}>
+        <Link to="/sign-up" className={classes.headerLine__buttonsignUp}>
           Sign Up
-        </button>
-      </form>
+        </Link>
+      </div>
     </div>
   )
 }
