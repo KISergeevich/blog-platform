@@ -38,12 +38,15 @@ export default function Article() {
   }
   if (status === 'succeeded') {
     const { tagList, author, createdAt, title, description, body } = article
+    const chekedTitle = title === null || title.trim() === '' ? 'Title Post' : title
+    const chekedDescription = description === null ? '' : description
+    const chekedBody = body === null ? '' : body
     return (
       <div className={classes.article}>
         <div className={classes.article__header}>
           <div className={classes.article__aboutPost}>
             <div className={classes.article__titlePost}>
-              <div className={classes.article__title}>{title}</div>
+              <div className={classes.article__title}>{chekedTitle}</div>
               <form className={classes.article__form}>
                 <button className={classes.article__button} type="button">
                   <img src={grayHeart} alt="notLiked" className={classes.article__like} />
@@ -57,8 +60,8 @@ export default function Article() {
             <AuthorAvatar author={author} postDate={createdAt} />
           </div>
         </div>
-        <div className={classes.article__description}>{description}</div>
-        <Markdown className={classes.article__text}>{body}</Markdown>
+        <div className={classes.article__description}>{chekedDescription}</div>
+        <Markdown className={classes.article__text}>{chekedBody}</Markdown>
       </div>
     )
   }

@@ -10,7 +10,9 @@ import classes from './article-item.module.scss'
 
 export default function ArticleItem({ article }) {
   const { tagList } = article
-  const { author } = article
+  const { author, description, title } = article
+  const chekedDescription = description === null ? '' : description
+  const chekedTitle = title === null || title.trim() === '' ? 'Title Post' : title
 
   return (
     <div className={classes.articleItem}>
@@ -18,7 +20,7 @@ export default function ArticleItem({ article }) {
         <div className={classes.articleItem__informationBlock}>
           <div className={classes.articleItem__titlePost}>
             <Link to={`/articles/${article.slug}`} className={classes.articleItem__title}>
-              {article.title}
+              {chekedTitle}
             </Link>
             <form className={classes.articleItem__form}>
               <button className={classes.articleItem__button} type="button">
@@ -32,7 +34,7 @@ export default function ArticleItem({ article }) {
         <AuthorAvatar author={author} postDate={article.createdAt} />
       </div>
       <div className={classes.articleItem__textPost}>
-        <Markdown>{article.description}</Markdown>
+        <Markdown>{chekedDescription}</Markdown>
       </div>
     </div>
   )
