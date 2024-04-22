@@ -24,11 +24,5 @@ export default function App() {
         <Route path="/sign-up" component={SignUp} />
       </div>
     </Router>
-
-    //   <BlockRegistration/>
-    //   <BlockSignIn/>
-    //   <blockEditProfile/>
-    //   <Article />
-    //   <NewArticle />
   )
 }
