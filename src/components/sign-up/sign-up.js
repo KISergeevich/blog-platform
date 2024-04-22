@@ -22,8 +22,9 @@ export default function SignUp() {
           <label className={classes.signUp__label} htmlFor="username">
             Username
             <input
+              className={classes.signUp__input}
               {...register('username', { required: true, minLength: 3, maxLength: 20 })}
-              placeholder="username"
+              placeholder="Username"
               id="username"
               aria-invalid={errors.username ? 'true' : 'false'}
             />
@@ -40,6 +41,7 @@ export default function SignUp() {
           <label className={classes.signUp__label} htmlFor="Email address">
             Email address
             <input
+              className={classes.signUp__input}
               {...register('email', {
                 required: true,
                 pattern:
@@ -59,8 +61,10 @@ export default function SignUp() {
           <label className={classes.signUp__label} htmlFor="password">
             Password
             <input
+              className={classes.signUp__input}
               {...register('password', { required: true, minLength: 6, maxLength: 40 })}
               type="password"
+              placeholder="Password"
               id="password"
               aria-invalid={errors.password ? 'true' : 'false'}
             />
@@ -77,6 +81,7 @@ export default function SignUp() {
           <label className={classes.signUp__label} htmlFor="RepeatPassword">
             Repeat Password
             <input
+              className={classes.signUp__input}
               {...register('confirmPassword', {
                 required: true,
                 minLength: 6,
@@ -84,6 +89,7 @@ export default function SignUp() {
                 validate: (value, form) => value === form.password,
               })}
               type="password"
+              placeholder="Password"
               id="RepeatPassword"
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
             />
@@ -111,9 +117,9 @@ export default function SignUp() {
             )}
           />
           <span className={classes.signUp__checkboxText}>I agree to the processing of my personal information</span>
-          <div className={classes.signUp__error}>
-            {errors.agreement?.type === 'required' ? 'Need to agree with processing' : null}
-          </div>
+        </div>
+        <div className={classes.signUp__error}>
+          {errors.agreement?.type === 'required' ? 'Need to agree with processing' : null}
         </div>
         <button type="submit" className={classes.signUp__button}>
           Create
