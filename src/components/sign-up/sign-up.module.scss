@@ -97,7 +97,9 @@
         text-align: center;
         color: #757171;
     }
-
+    &__link, &__link:hover, &__link:active, &__link:focus {
+        color: #1890FF;
+    }
 }
 [aria-invalid = true] {
     font-size: 14px;

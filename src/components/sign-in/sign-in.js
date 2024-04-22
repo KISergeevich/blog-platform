@@ -16,9 +16,10 @@ export default function SignIn() {
     <div className={classes.signIn}>
       <h4 className={classes.signIn__title}>Sign In</h4>
       <form className={classes.signIn__buttonForm} onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email">
+        <label className={classes.signIn__label} htmlFor="email">
           Email address
           <input
+            className={classes.signIn__input}
             {...register('email', {
               required: true,
               pattern:
@@ -28,26 +29,45 @@ export default function SignIn() {
             id="Email address"
             aria-invalid={errors.email ? 'true' : 'false'}
           />
+          <span className={classes.signIn__error}>
+            {errors.email?.type === 'required' ? 'Email address is required' : null}
+          </span>
+          <span className={classes.signIn__error}>
+            {errors.email?.type === 'pattern' ? 'Email address must be valid' : null}
+          </span>
         </label>
-        <label htmlFor="password">
+        <label className={classes.signIn__label} htmlFor="password">
           Password
           <input
+            className={classes.signIn__input}
             {...register('password', {
               required: true,
               minLength: 6,
               maxLength: 40,
             })}
-            placeholder="Email address"
-            id="Email address"
-            aria-invalid={errors.email ? 'true' : 'false'}
+            placeholder="Password"
+            id="Password"
+            aria-invalid={errors.password ? 'true' : 'false'}
           />
+          <span className={classes.signIn__error}>
+            {errors.password?.type === 'required' ? 'Password is required' : null}
+          </span>
+          <span className={classes.signIn__error}>
+            {errors.password?.type === 'minLength' ? 'Your password needs to be at least 6 characters' : null}
+          </span>
+          <span className={classes.signIn__error}>
+            {errors.password?.type === 'maxLength' ? 'Your password needs to be less 40 characters' : null}
+          </span>
         </label>
         <button type="submit" className={classes.signIn__button}>
           Login
         </button>
       </form>
       <span className={classes.signIn__moveToSignUp}>
-        Do not have an account? <Link to="/sign-up">Sign Up.</Link>
+        Do not have an account?{' '}
+        <Link className={classes.signIn__link} to="/sign-up">
+          Sign Up.
+        </Link>
       </span>
     </div>
   )

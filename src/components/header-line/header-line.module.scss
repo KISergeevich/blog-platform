@@ -42,11 +42,11 @@ a {
         letter-spacing: 0em;
         white-space: nowrap;
     }
-    &__buttonMenu:hover, &__buttonMenu:focus, &__buttonMenu:active, &__buttonMenu:visited
+    &__buttonMenu:hover, &__buttonMenu:focus, &__buttonMenu:active, &__buttonMenu:visited,
     &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active, {
         border: 1px solid #52C41A;
         border-radius: 5px;
-        padding: 5px;
+        padding: 10px;
         scale: 1.1;
         color: #52c41a;
         transition: 0.1s;
@@ -56,6 +56,7 @@ a {
         border-color: #1890FF;
         color: #1890FF;
         transform: 0.1s;
+        
     }
 }
 

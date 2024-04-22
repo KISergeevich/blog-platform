@@ -127,7 +127,10 @@ export default function SignUp() {
       </form>
 
       <span className={classes.signUp__moveToSignIn}>
-        Already have an account? <Link to="/sign-in">Sign In.</Link>
+        Already have an account?{' '}
+        <Link className={classes.signUp__link} to="/sign-in">
+          Sign In.
+        </Link>
       </span>
     </div>
   )
