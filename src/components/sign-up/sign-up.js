@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Alert, Spin } from 'antd'
@@ -37,6 +37,12 @@ export default function SignUp() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  const history = useHistory()
+  useEffect(() => {
+    if (status === 'succeeded') {
+      history.push('/sign-in')
+    }
+  }, [status, history])
 
   return (
     <div className={classes.signUp}>
