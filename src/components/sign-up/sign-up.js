@@ -3,10 +3,10 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { Spin } from 'antd'
+import { Alert, Spin } from 'antd'
 
 import fetchSignUp from '../../redux/sign-up/fetch-sign-up'
-import { changeError, changeStatus, selectStatus } from '../../redux/sign-up/sign-up-slice'
+import { changeError, changeStatus, selectError, selectStatus } from '../../redux/sign-up/sign-up-slice'
 
 import classes from './sign-up.module.scss'
 
@@ -20,7 +20,7 @@ export default function SignUp() {
   } = useForm()
 
   const status = useSelector(selectStatus)
-
+  const error = useSelector(selectError)
   const onSubmit = (formValue) => {
     const user = {
       username: formValue.username,
@@ -156,7 +156,7 @@ export default function SignUp() {
           )}
         </div>
       </form>
-
+      <div className={classes.signUp__error}>{status === 'failed' ? <Alert message={error} type="error" /> : null}</div>
       <span className={classes.signUp__moveToSignIn}>
         Already have an account?{' '}
         <Link className={classes.signUp__link} to="/sign-in">

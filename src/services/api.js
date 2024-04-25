@@ -44,11 +44,15 @@ export default class Api {
       },
       body: JSON.stringify({ user }),
     }
-    const response = await fetch(`${this.baseURL}users`, options)
-    if (response.ok) {
-      const result = await response.json()
-      return result
+    try {
+      const response = await fetch(`${this.baseURL}users`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return result
+      }
+      throw new Error()
+    } catch {
+      throw new Error('Ooops, Problems with registration')
     }
-    throw new Error('Ooops, Problems with registration')
   }
 }
