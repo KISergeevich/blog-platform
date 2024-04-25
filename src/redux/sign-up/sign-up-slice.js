@@ -20,6 +20,12 @@ const signUpSlice = createSlice({
         status: action.payload.status,
       }
     },
+    changeError(state, action) {
+      return {
+        ...state,
+        error: action.payload.error,
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -36,6 +42,6 @@ const signUpSlice = createSlice({
   },
 })
 
-export const { changeStatus } = signUpSlice.actions
+export const { changeStatus, changeError } = signUpSlice.actions
 export const { selectError, selectStatus } = signUpSlice.selectors
 export default signUpSlice.reducer

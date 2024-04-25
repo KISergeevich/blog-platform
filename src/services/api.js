@@ -49,6 +49,6 @@ export default class Api {
       const result = await response.json()
       return result
     }
-    throw new Error('Problems with registration')
+    throw new Error('Ooops, Problems with registration')
   }
 }

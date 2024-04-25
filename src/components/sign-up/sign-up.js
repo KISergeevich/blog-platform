@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 
 import fetchSignUp from '../../redux/sign-up/fetch-sign-up'
+import { changeError, changeStatus } from '../../redux/sign-up/sign-up-slice'
 
 import classes from './sign-up.module.scss'
 
@@ -25,6 +26,13 @@ export default function SignUp() {
 
     dispatch(fetchSignUp(user))
   }
+  useEffect(() => {
+    return () => {
+      dispatch(changeStatus({ status: 'idle' }))
+      dispatch(changeError({ error: null }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={classes.signUp}>
