@@ -2,17 +2,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useForm, Controller } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+
+import fetchSignUp from '../../redux/sign-up/fetch-sign-up'
 
 import classes from './sign-up.module.scss'
 
 export default function SignUp() {
+  const dispatch = useDispatch()
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (formValue) => {
+    const user = {
+      username: formValue.username,
+      email: formValue.email.toLowerCase(),
+      password: formValue.password,
+    }
+
+    dispatch(fetchSignUp(user))
+  }
+
   return (
     <div className={classes.signUp}>
       <h4 className={classes.signUp__title}>Create new account</h4>

@@ -34,4 +34,21 @@ export default class Api {
     }
     throw new Error('Can not find article')
   }
+
+  async signUp(user) {
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ user }),
+    }
+    const response = await fetch(`${this.baseURL}users`, options)
+    if (response.ok) {
+      const result = await response.json()
+      return result
+    }
+    throw new Error('Problems with registration')
+  }
 }
