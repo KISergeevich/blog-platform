@@ -2,10 +2,11 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useForm, Controller } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Spin } from 'antd'
 
 import fetchSignUp from '../../redux/sign-up/fetch-sign-up'
-import { changeError, changeStatus } from '../../redux/sign-up/sign-up-slice'
+import { changeError, changeStatus, selectStatus } from '../../redux/sign-up/sign-up-slice'
 
 import classes from './sign-up.module.scss'
 
@@ -17,6 +18,9 @@ export default function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm()
+
+  const status = useSelector(selectStatus)
+
   const onSubmit = (formValue) => {
     const user = {
       username: formValue.username,
@@ -142,9 +146,15 @@ export default function SignUp() {
         <div className={classes.signUp__error}>
           {errors.agreement?.type === 'required' ? 'Need to agree with processing' : null}
         </div>
-        <button type="submit" className={classes.signUp__button}>
-          Create
-        </button>
+        <div className={classes.signUp__spinBlock}>
+          {status === 'loading' ? (
+            <Spin size="large" className={classes.spin} />
+          ) : (
+            <button type="submit" className={classes.signUp__button}>
+              Create
+            </button>
+          )}
+        </div>
       </form>
 
       <span className={classes.signUp__moveToSignIn}>

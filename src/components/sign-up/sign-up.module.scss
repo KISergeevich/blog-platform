@@ -84,6 +84,10 @@
         background: rgba(0,0,0,0);
         transition-duration: 0.5s;
     }
+    &__spinBlock {
+        display: flex;
+        justify-content: center;
+    }
     &__button:active {
         border: 5px solid white;
         color: white;
