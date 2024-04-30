@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { selectIsSignedIn, selectUser } from '../../redux/sign/sign-slice'
+import { changeErrorUserLogOut, selectIsSignedIn, selectUser } from '../../redux/sign/sign-slice'
 
 import classes from './header-line.module.scss'
 
 export default function HeaderLine() {
+  const dispatch = useDispatch()
   const isSignedIn = useSelector(selectIsSignedIn)
 
   const user = useSelector(selectUser)
@@ -24,7 +25,11 @@ export default function HeaderLine() {
             <div className={classes.headerLine__username}>{user.username}</div>
             <img src={user.image} alt="userLogo" />
           </div>
-          <button className={classes.headerLine__logOut} type="button">
+          <button
+            onClick={() => dispatch(changeErrorUserLogOut())}
+            className={classes.headerLine__logOut}
+            type="button"
+          >
             Log Out
           </button>
         </div>

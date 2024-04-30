@@ -31,6 +31,12 @@ const signSlice = createSlice({
         },
       }
     },
+    changeErrorUserLogOut(state) {
+      return {
+        ...state,
+        user: undefined,
+      }
+    },
     changeStatus(state, action) {
       return {
         ...state,
@@ -71,6 +77,6 @@ const signSlice = createSlice({
   },
 })
 
-export const { changeStatus, changeError, changeUser } = signSlice.actions
+export const { changeStatus, changeError, changeUser, changeErrorUserLogOut } = signSlice.actions
 export const { selectError, selectStatus, selectUser, selectIsSignedIn } = signSlice.selectors
 export default signSlice.reducer
