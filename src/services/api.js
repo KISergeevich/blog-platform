@@ -9,15 +9,19 @@ export default class Api {
         accept: 'application/json',
       },
     }
-    const response = await fetch(`${this.baseURL}articles?offset=${offset}&limit=${pageSize}`, options)
-    if (response.ok) {
-      const result = await response.json()
-      return {
-        articles: result.articles,
-        total: result.articlesCount,
+    try {
+      const response = await fetch(`${this.baseURL}articles?offset=${offset}&limit=${pageSize}`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return {
+          articles: result.articles,
+          total: result.articlesCount,
+        }
       }
+      throw new Error()
+    } catch (error) {
+      throw new Error(error.body[0])
     }
-    throw new Error('Something wrong')
   }
 
   async getArticle(slug) {
@@ -27,12 +31,16 @@ export default class Api {
         accept: 'application/json',
       },
     }
-    const response = await fetch(`${this.baseURL}articles/${slug}`, options)
-    if (response.ok) {
-      const result = await response.json()
-      return result
+    try {
+      const response = await fetch(`${this.baseURL}articles/${slug}`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return result
+      }
+      throw new Error()
+    } catch (error) {
+      throw new Error(error.body[0])
     }
-    throw new Error('Can not find article')
   }
 
   async signUp(user) {
@@ -50,9 +58,30 @@ export default class Api {
         const result = await response.json()
         return result
       }
-      throw new Error()
-    } catch {
-      throw new Error('Ooops, Problems with registration')
+      throw new Error('Sign Up error!')
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
+  async signIn(user) {
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ user }),
+    }
+    try {
+      const response = await fetch(`${this.baseURL}users/login`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return result
+      }
+      throw new Error('Sign In error!')
+    } catch (error) {
+      throw new Error(error.message)
     }
   }
 }

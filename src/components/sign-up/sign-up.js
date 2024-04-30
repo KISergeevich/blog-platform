@@ -40,7 +40,7 @@ export default function SignUp() {
   const history = useHistory()
   useEffect(() => {
     if (status === 'succeeded') {
-      history.push('/sign-in')
+      history.push('/articles')
     }
   }, [status, history])
 

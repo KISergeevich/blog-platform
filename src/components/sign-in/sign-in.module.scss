@@ -67,12 +67,21 @@
         text-align: center;
         color: #757171;
     }
+    &__spinBlock {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+    }
     &__error {
         font-size: 14px;
         font-weight: 400;
         line-height: 22px;
         text-align: left;
         color: #F5222D;
+    }
+    &__StatusError {
+        margin: 10px 0px;
     }
     &__link, &__link:hover, &__link:active, &__link:focus {
         color: #1890FF;

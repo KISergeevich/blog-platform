@@ -1,17 +1,48 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { useDispatch, useSelector } from 'react-redux'
+import { Alert, Spin } from 'antd'
+
+import fetchSignIn from '../../redux/sign-in/fetch-sign-in'
+import { changeError, changeStatus, selectError, selectStatus } from '../../redux/sign-in/sign-in-slice'
 
 import classes from './sign-in.module.scss'
 
 export default function SignIn() {
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => console.log(data)
+
+  const status = useSelector(selectStatus)
+  const error = useSelector(selectError)
+
+  const onSubmit = (formValue) => {
+    const user = {
+      email: formValue.email.toLowerCase(),
+      password: formValue.password,
+    }
+    dispatch(fetchSignIn(user))
+  }
+
+  useEffect(() => {
+    return () => {
+      dispatch(changeStatus({ status: 'idle' }))
+      dispatch(changeError({ error: null }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const history = useHistory()
+  useEffect(() => {
+    if (status === 'succeeded') {
+      history.push('/articles')
+    }
+  }, [status, history])
+
   return (
     <div className={classes.signIn}>
       <h4 className={classes.signIn__title}>Sign In</h4>
@@ -46,6 +77,7 @@ export default function SignIn() {
               maxLength: 40,
             })}
             placeholder="Password"
+            type="password"
             id="Password"
             aria-invalid={errors.password ? 'true' : 'false'}
           />
@@ -59,9 +91,18 @@ export default function SignIn() {
             {errors.password?.type === 'maxLength' ? 'Your password needs to be less 40 characters' : null}
           </span>
         </label>
-        <button type="submit" className={classes.signIn__button}>
-          Login
-        </button>
+        <div className={classes.signIn__StatusError}>
+          {status === 'failed' ? <Alert message={error} type="error" /> : null}
+        </div>
+        <div className={classes.signIn__spinBlock}>
+          {status === 'loading' ? (
+            <Spin size="large" />
+          ) : (
+            <button type="submit" className={classes.signIn__button}>
+              Login
+            </button>
+          )}
+        </div>
       </form>
       <span className={classes.signIn__moveToSignUp}>
         Do not have an account?{' '}
