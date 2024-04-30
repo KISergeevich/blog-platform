@@ -5,8 +5,8 @@ import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux'
 import { Alert, Spin } from 'antd'
 
-import fetchSignIn from '../../redux/sign-in/fetch-sign-in'
-import { changeError, changeStatus, selectError, selectStatus } from '../../redux/sign-in/sign-in-slice'
+import fetchSignIn from '../../redux/sign/fetch-sign-in'
+import { changeError, changeStatus, selectError, selectStatus } from '../../redux/sign/sign-slice'
 
 import classes from './sign-in.module.scss'
 

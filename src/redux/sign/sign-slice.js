@@ -2,9 +2,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import fetchSignIn from './fetch-sign-in'
+import fetchSignUp from './fetch-sign-up'
 
-const signInSlice = createSlice({
-  name: 'signIn',
+const signSlice = createSlice({
+  name: 'sign',
   initialState: {
     user: {
       email: '',
@@ -53,16 +54,28 @@ const signInSlice = createSlice({
       .addCase(fetchSignIn.pending, (state) => {
         state.status = 'loading'
       })
-      .addCase(fetchSignIn.fulfilled, (state) => {
+      .addCase(fetchSignIn.fulfilled, (state, action) => {
         state.status = 'succeeded'
+        state.user = action.payload.user
       })
       .addCase(fetchSignIn.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+      .addCase(fetchSignUp.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchSignUp.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.user = action.payload.user
+      })
+      .addCase(fetchSignUp.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
       })
   },
 })
 
-export const { changeStatus, changeError, changeUser } = signInSlice.actions
-export const { selectError, selectStatus, selectUser } = signInSlice.selectors
-export default signInSlice.reducer
+export const { changeStatus, changeError, changeUser } = signSlice.actions
+export const { selectError, selectStatus, selectUser } = signSlice.selectors
+export default signSlice.reducer

@@ -5,8 +5,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Alert, Spin } from 'antd'
 
-import fetchSignUp from '../../redux/sign-up/fetch-sign-up'
-import { changeError, changeStatus, selectError, selectStatus } from '../../redux/sign-up/sign-up-slice'
+import fetchSignUp from '../../redux/sign/fetch-sign-up'
+import { changeError, changeStatus, selectError, selectStatus } from '../../redux/sign/sign-slice'
 
 import classes from './sign-up.module.scss'
 
