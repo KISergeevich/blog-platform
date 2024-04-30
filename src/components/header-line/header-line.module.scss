@@ -10,11 +10,11 @@ a {
     background-color: white;
     display: flex;
     padding: 0 20px;
-
+    justify-content: space-between;
     &__startMenu, &__signIn, &__signUp {
         align-self: center;
     }
-    &__buttonMenu, &__buttonSignIn {
+    &__buttonMenu, &__buttonSignIn,  &__createArticle, &__logOut {
         border: 0;
         align-self: center;
         padding: 0;
@@ -30,6 +30,7 @@ a {
     &__signUp {
         margin-left: 25px;
     }
+    
     &__buttonsignUp {
         padding: 10px;
         border-radius: 5px;
@@ -43,7 +44,8 @@ a {
         white-space: nowrap;
     }
     &__buttonMenu:hover, &__buttonMenu:focus, &__buttonMenu:active, &__buttonMenu:visited,
-    &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active, {
+    &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active, 
+    &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active {
         border: 1px solid #52C41A;
         border-radius: 5px;
         padding: 10px;
@@ -57,6 +59,43 @@ a {
         color: #1890FF;
         transform: 0.1s;
         
+    }
+    &__signed {
+        display: flex;
+    }
+    &__createArticle {
+        border: 1px solid #52C41A;
+        border-radius:  5px;
+        padding: 5px;
+        
+        font-family:'Inter UI';
+        font-size: 14px;
+        line-height: 22px;
+        text-align: left;
+        color: #52C41A;
+    }
+    &__user {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px 10px;
+        gap: 10px;
+    }
+    &__username {
+        font-family:'Inter UI';
+        font-size: 22px;
+        line-height: 22px;
+        text-align: left;
+    }
+    &__logOut {
+       
+        font-family: 'Inter UI';
+        font-size: 18px;
+        line-height: 28px;
+        text-align: left;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 6px;
     }
 }
 

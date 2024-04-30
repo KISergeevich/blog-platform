@@ -7,13 +7,7 @@ import fetchSignUp from './fetch-sign-up'
 const signSlice = createSlice({
   name: 'sign',
   initialState: {
-    user: {
-      email: '',
-      token: '',
-      username: '',
-      bio: '',
-      image: null,
-    },
+    user: undefined,
 
     status: 'idle',
     error: null,
@@ -22,6 +16,7 @@ const signSlice = createSlice({
     selectStatus: (state) => state.status,
     selectError: (state) => state.error,
     selectUser: (state) => state.user,
+    selectIsSignedIn: (state) => state.user !== undefined,
   },
   reducers: {
     changeUser(state, action) {
@@ -77,5 +72,5 @@ const signSlice = createSlice({
 })
 
 export const { changeStatus, changeError, changeUser } = signSlice.actions
-export const { selectError, selectStatus, selectUser } = signSlice.selectors
+export const { selectError, selectStatus, selectUser, selectIsSignedIn } = signSlice.selectors
 export default signSlice.reducer
