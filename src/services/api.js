@@ -56,7 +56,7 @@ export default class Api {
       const response = await fetch(`${this.baseURL}users`, options)
       if (response.ok) {
         const result = await response.json()
-        return result
+        return result.user
       }
       throw new Error('Sign Up error!')
     } catch (error) {
@@ -77,11 +77,30 @@ export default class Api {
       const response = await fetch(`${this.baseURL}users/login`, options)
       if (response.ok) {
         const result = await response.json()
-        return result
+        return result.user
       }
       throw new Error('Sign In error!')
     } catch (error) {
       throw new Error(error.message)
+    }
+  }
+
+  async getUser(token) {
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    try {
+      const response = await fetch(`${this.baseURL}user`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return result.user
+      }
+      throw new Error(response.body[0])
+    } catch (error) {
+      throw new Error(error)
     }
   }
 }

@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
+import Api from '../../services/api'
 
 import fetchSignIn from './fetch-sign-in'
 import fetchSignUp from './fetch-sign-up'
@@ -57,7 +59,7 @@ const signSlice = createSlice({
       })
       .addCase(fetchSignIn.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.user = action.payload.user
+        state.user = action.payload
       })
       .addCase(fetchSignIn.rejected, (state, action) => {
         state.status = 'failed'
@@ -68,9 +70,19 @@ const signSlice = createSlice({
       })
       .addCase(fetchSignUp.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.user = action.payload.user
+        state.user = action.payload
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+      .addCase('curentUser/fetchCurentUser/pending', (state) => {
+        state.status = 'loading'
+      })
+      .addCase('curentUser/fetchCurentUser/fulfilled', (state) => {
+        state.status = 'succeeded'
+      })
+      .addCase('curentUser/fetchCurentUser/rejected', (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
       })
@@ -80,3 +92,17 @@ const signSlice = createSlice({
 export const { changeStatus, changeError, changeUser, changeErrorUserLogOut } = signSlice.actions
 export const { selectError, selectStatus, selectUser, selectIsSignedIn } = signSlice.selectors
 export default signSlice.reducer
+
+// этот вариант написания тоже работает как вариант использования танки внутри слайса
+
+export const fetchCurentUser = createAsyncThunk('curentUser/fetchCurentUser', async (token, { dispatch }) => {
+  const api = new Api()
+  const user = await api.getUser(token)
+  dispatch(changeUser(user))
+  return user
+})
+
+export const deleteToken = createAsyncThunk('token/deleteToken', (_, { dispatch }) => {
+  localStorage.removeItem('token')
+  dispatch(changeErrorUserLogOut())
+})

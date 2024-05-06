@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux'
 
 import icon from '../../assets/img/icon.png'
-import { changeErrorUserLogOut, selectIsSignedIn, selectUser } from '../../redux/sign/sign-slice'
+import { deleteToken, selectIsSignedIn, selectUser } from '../../redux/sign/sign-slice'
 
 import classes from './header-line.module.scss'
 
@@ -26,11 +26,7 @@ export default function HeaderLine() {
             <div className={classes.headerLine__username}>{user.username}</div>
             <img src={user.image === undefined ? icon : user.image} alt="userLogo" />
           </div>
-          <button
-            onClick={() => dispatch(changeErrorUserLogOut())}
-            className={classes.headerLine__logOut}
-            type="button"
-          >
+          <button onClick={() => dispatch(deleteToken())} className={classes.headerLine__logOut} type="button">
             Log Out
           </button>
         </div>

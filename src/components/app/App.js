@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import HeaderLine from '../header-line/header-line'
 import ArticleList from '../article-list/article-list'
 import Article from '../acrticle/acrticle'
 import SignIn from '../sign-in/sign-in'
 import SignUp from '../sign-up/sign-up'
+import { fetchCurentUser } from '../../redux/sign/sign-slice'
 
 import classes from './app.module.scss'
 
 export default function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token !== null) {
+      dispatch(fetchCurentUser(token))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <Router>
       <div className={classes.app__header}>
