@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux'
 
+import icon from '../../assets/img/icon.png'
 import { changeErrorUserLogOut, selectIsSignedIn, selectUser } from '../../redux/sign/sign-slice'
 
 import classes from './header-line.module.scss'
@@ -23,7 +24,7 @@ export default function HeaderLine() {
           </button>
           <div className={classes.headerLine__user}>
             <div className={classes.headerLine__username}>{user.username}</div>
-            <img src={user.image} alt="userLogo" />
+            <img src={user.image === undefined ? icon : user.image} alt="userLogo" />
           </div>
           <button
             onClick={() => dispatch(changeErrorUserLogOut())}

@@ -45,7 +45,8 @@ a {
     }
     &__buttonMenu:hover, &__buttonMenu:focus, &__buttonMenu:active, &__buttonMenu:visited,
     &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active, 
-    &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active {
+    &__buttonSignIn:hover, &__buttonSignIn:focus, &__buttonSignIn:active, &__createArticle:hover, 
+    &__createArticle:focus, &__createArticle:active {
         border: 1px solid #52C41A;
         border-radius: 5px;
         padding: 10px;
@@ -58,6 +59,15 @@ a {
         border-color: #1890FF;
         color: #1890FF;
         transform: 0.1s;
+        
+    }
+    &__logOut:hover, &__logOut:active, &__logOut:focus {
+        border: 1px solid red;
+        border-radius: 5px;
+        padding: 2px;
+        scale: 1.1;
+        color: red;
+        transition: 0.1s;
         
     }
     &__signed {
