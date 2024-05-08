@@ -1,3 +1,12 @@
+function clearResponse(dto) {
+  return {
+    email: dto.email,
+    token: dto.token,
+    username: dto.username,
+    image: dto.image === null || dto.image === '' ? undefined : dto.image,
+  }
+}
+
 export default class Api {
   baseURL = 'https://blog.kata.academy/api/'
 
@@ -79,9 +88,13 @@ export default class Api {
         const result = await response.json()
         return result.user
       }
-      throw new Error('Sign In error!')
+      const result = await response.json()
+      const [key, value] = Object.entries(result.errors)[0]
+      const message = `${key} ${value}`
+
+      throw new Error(message)
     } catch (error) {
-      throw new Error(error.message)
+      throw new Error(error)
     }
   }
 
@@ -99,6 +112,29 @@ export default class Api {
         return result.user
       }
       throw new Error(response.body[0])
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  async updateUser(user, token) {
+    const options = {
+      method: 'PUT',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ user }),
+    }
+    try {
+      const response = await fetch(`${this.baseURL}user`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return clearResponse(result.user)
+      }
+      const result = await response.json()
+      throw new Error(result.errors.body[0])
     } catch (error) {
       throw new Error(error)
     }

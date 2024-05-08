@@ -25,11 +25,7 @@ const signSlice = createSlice({
       return {
         ...state,
         user: {
-          email: action.payload.email,
-          token: action.payload.token,
-          username: action.payload.username,
-          bio: action.payload.bio,
-          image: action.payload.image,
+          ...action.payload,
         },
       }
     },
@@ -105,4 +101,11 @@ export const fetchCurentUser = createAsyncThunk('curentUser/fetchCurentUser', as
 export const deleteToken = createAsyncThunk('token/deleteToken', (_, { dispatch }) => {
   localStorage.removeItem('token')
   dispatch(changeErrorUserLogOut())
+})
+
+export const updateProfile = createAsyncThunk('update/updateProfile', async ({ user, token }, { dispatch }) => {
+  const api = new Api()
+  const updateProfileResult = await api.updateUser(user, token)
+  dispatch(changeUser(updateProfileResult))
+  return updateProfileResult
 })

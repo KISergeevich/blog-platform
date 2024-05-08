@@ -19,13 +19,17 @@ export default function HeaderLine() {
       </Link>
       {isSignedIn ? (
         <div className={classes.headerLine__signed}>
-          <button className={classes.headerLine__createArticle} type="button">
+          <Link to="/new-article" className={classes.headerLine__createArticle} type="button">
             Create article
-          </button>
-          <div className={classes.headerLine__user}>
+          </Link>
+          <Link to="/profile" className={classes.headerLine__user}>
             <div className={classes.headerLine__username}>{user.username}</div>
-            <img src={user.image === undefined ? icon : user.image} alt="userLogo" />
-          </div>
+            <img
+              className={classes.headerLine__logo}
+              src={user.image === undefined ? icon : user.image}
+              alt="userLogo"
+            />
+          </Link>
           <button onClick={() => dispatch(deleteToken())} className={classes.headerLine__logOut} type="button">
             Log Out
           </button>

@@ -8,6 +8,8 @@ import Article from '../acrticle/acrticle'
 import SignIn from '../sign-in/sign-in'
 import SignUp from '../sign-up/sign-up'
 import { fetchCurentUser } from '../../redux/sign/sign-slice'
+import Profile from '../profile/profile'
+import CreateArticle from '../create-article/create-article'
 
 import classes from './app.module.scss'
 
@@ -20,6 +22,7 @@ export default function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   return (
     <Router>
       <div className={classes.app__header}>
@@ -32,6 +35,8 @@ export default function App() {
         <Route path="/articles/:slug" component={Article} />
         <Route path="/sign-in" component={SignIn} />
         <Route path="/sign-up" component={SignUp} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/new-article" component={CreateArticle} />
       </div>
     </Router>
   )
