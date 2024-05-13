@@ -17,8 +17,29 @@ export default function CreateArticle() {
         </label>
         <label className={classes.createArticle__label} htmlFor="text">
           Text
-          <textarea className={classes.createArticle__input} id="text" placeholder="Text" />
+          <textarea className={classes.createArticle__inputTextarea} id="text" placeholder="Text" />
         </label>
+        <div className={classes.createArticle__tagBlock}>
+          <span className={classes.createArticle__tagTitle}>Tags</span>
+          <div className={classes.createArticle__newTag}>
+            <input type="text" className={classes.createArticle__inputTag} placeholder="Tag" />
+            <button type="button" className={classes.createArticle__buttonDelete}>
+              Delete
+            </button>
+          </div>
+          <div className={classes.createArticle__newTag}>
+            <input type="text" className={classes.createArticle__inputTag} placeholder="Tag" />
+            <button type="button" className={classes.createArticle__buttonDelete}>
+              Delete
+            </button>
+            <button type="button" className={classes.createArticle__addTag}>
+              Add tag
+            </button>
+          </div>
+        </div>
+        <button type="submit" className={classes.createArticle__submit}>
+          Send
+        </button>
       </form>
     </div>
   )
