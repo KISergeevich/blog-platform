@@ -6,7 +6,7 @@ import Markdown from 'markdown-to-jsx'
 
 import grayHeart from '../../assets/img/nonliked.png'
 import AuthorAvatar from '../author-avatar/author-avatar'
-import fetchArticle from '../../redux/article/fetch-article-thunk'
+import getArticle from '../../redux/article/get-article-thunk'
 import { deleteStatus, selectArticle, selectError, selectStatus } from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
 
@@ -21,7 +21,7 @@ export default function Article() {
   const err = useSelector(selectError)
 
   useEffect(() => {
-    dispatch(fetchArticle(slug))
+    dispatch(getArticle(slug))
 
     return () => {
       dispatch(deleteStatus())
@@ -37,7 +37,7 @@ export default function Article() {
     )
   }
   if (status === 'succeeded') {
-    const { tagList, author, createdAt, title, description, body } = article
+    const { tags, author, createdAt, title, description, body } = article
     const chekedTitle = title === null || title.trim() === '' ? 'Title Post' : title
     const chekedDescription = description === null ? '' : description
     const chekedBody = body === null ? '' : body
@@ -54,7 +54,7 @@ export default function Article() {
               </form>
               <span className={classes.articleItem__span}>{article.favoritesCount}</span>
             </div>
-            <Tags tagList={tagList} />
+            <Tags tags={tags} />
           </div>
           <div className={classes.article__userBlock}>
             <AuthorAvatar author={author} postDate={createdAt} />

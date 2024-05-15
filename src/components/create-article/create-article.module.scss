@@ -33,7 +33,7 @@
         margin-top: 20px;
     }
     &__input {
-        width: 100%;
+        width: auto;
         height: 40px;
         gap: 0px;
         opacity: 0px;
@@ -46,6 +46,9 @@
         resize: none;
         height: 168px;
         padding: 10px;
+        border: 1px solid #BFBFBF;
+        border-radius: 4px;
+        color:#D9D9D9;
     }
     &__tagBlock {
         margin-top: 20px;

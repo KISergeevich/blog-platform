@@ -1,4 +1,6 @@
-function clearResponse(dto) {
+import { toArticle, toArticleDto } from './article-dto'
+
+function toUser(dto) {
   return {
     email: dto.email,
     token: dto.token,
@@ -23,7 +25,7 @@ export default class Api {
       if (response.ok) {
         const result = await response.json()
         return {
-          articles: result.articles,
+          articles: result.articles.map(toArticle),
           total: result.articlesCount,
         }
       }
@@ -44,7 +46,7 @@ export default class Api {
       const response = await fetch(`${this.baseURL}articles/${slug}`, options)
       if (response.ok) {
         const result = await response.json()
-        return result
+        return toArticle(result.article)
       }
       throw new Error()
     } catch (error) {
@@ -131,7 +133,30 @@ export default class Api {
       const response = await fetch(`${this.baseURL}user`, options)
       if (response.ok) {
         const result = await response.json()
-        return clearResponse(result.user)
+        return toUser(result.user)
+      }
+      const result = await response.json()
+      throw new Error(result.errors.body[0])
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  async createArticle(article, token) {
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(toArticleDto(article)),
+    }
+    try {
+      const response = await fetch(`${this.baseURL}articles`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return toArticle(result.article)
       }
       const result = await response.json()
       throw new Error(result.errors.body[0])

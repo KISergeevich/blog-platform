@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 
-import fetchArticle from './fetch-article-thunk'
+import getArticle from './get-article-thunk'
+import createArticle from './create-article-thunk'
 
 const articleSlice = createSlice({
   name: 'article',
@@ -31,15 +32,25 @@ const articleSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchArticle.pending, (state) => {
+      .addCase(getArticle.pending, (state) => {
         state.status = 'loading'
       })
-      .addCase(fetchArticle.fulfilled, (state, action) => {
+      .addCase(getArticle.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.article = action.payload
+      })
+      .addCase(getArticle.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+      .addCase(createArticle.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(createArticle.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.article = action.payload.article
-        state.total = action.payload.total
       })
-      .addCase(fetchArticle.rejected, (state, action) => {
+      .addCase(createArticle.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
       })

@@ -2,10 +2,10 @@ import React from 'react'
 
 import classes from './tags.module.scss'
 
-export default function Tags({ tagList }) {
+export default function Tags({ tags }) {
   let sortTags
-  if (tagList.length > 0) {
-    sortTags = tagList.map((tag) => {
+  if (tags.length > 0) {
+    sortTags = tags.map((tag) => {
       return (
         <div key={`${tag}+${Math.round(Math.random() * 100)}`} className={classes.tags__tagPost}>
           {tag}
