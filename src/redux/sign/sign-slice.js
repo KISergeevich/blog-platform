@@ -18,6 +18,7 @@ const signSlice = createSlice({
     selectStatus: (state) => state.status,
     selectError: (state) => state.error,
     selectUser: (state) => state.user,
+    selectToken: (state) => (state.user !== undefined ? state.user.token : undefined),
     selectIsSignedIn: (state) => state.user !== undefined,
   },
   reducers: {
@@ -86,7 +87,7 @@ const signSlice = createSlice({
 })
 
 export const { changeStatus, changeError, changeUser, changeErrorUserLogOut } = signSlice.actions
-export const { selectError, selectStatus, selectUser, selectIsSignedIn } = signSlice.selectors
+export const { selectError, selectStatus, selectUser, selectToken, selectIsSignedIn } = signSlice.selectors
 export default signSlice.reducer
 
 // этот вариант написания тоже работает как вариант использования танки внутри слайса

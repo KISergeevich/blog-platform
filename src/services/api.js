@@ -1,4 +1,5 @@
-import { toArticle, toArticleDto } from './article-dto'
+import { toArticle } from './article-dto'
+import toArticleRequest from './article-request'
 
 function toUser(dto) {
   return {
@@ -142,7 +143,7 @@ export default class Api {
     }
   }
 
-  async createArticle(article, token) {
+  async createArticle(params, token) {
     const options = {
       method: 'POST',
       headers: {
@@ -150,7 +151,7 @@ export default class Api {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify(toArticleDto(article)),
+      body: JSON.stringify(toArticleRequest(params)),
     }
     try {
       const response = await fetch(`${this.baseURL}articles`, options)

@@ -114,12 +114,31 @@
         background-color: #1890FF;
         transition-duration: 0.1s;
     }
+    &__error {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        text-align: left;
+        color: #F5222D;
+    }
+    &__StatusError {
+        margin: 10px 0px;
+    }
 }
 
 input[type="text"]::placeholder {
-    color: #D9D9D9;
+    color: black;
   }
   
   input[type="text"]:not(:placeholder-shown) {
     color: black;
+}
+
+[aria-invalid = true] {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    border-color: #F5222D;
+    outline: none;
 }
