@@ -26,10 +26,9 @@ export default function ArticleList() {
   const total = useSelector(selectTotal)
   const err = useSelector(selectError)
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchArticles({ pageNumber, pageSize }))
-    }
-  }, [status, dispatch, pageNumber, pageSize])
+    dispatch(fetchArticles({ pageNumber, pageSize }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const articlesComponent = articles.map((item) => {
     return <ArticleItem article={item} key={item.slug} />
   })

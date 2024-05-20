@@ -1,16 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 import { selectToken } from '../../redux/sign/sign-slice'
 import createArticle from '../../redux/article/create-article-thunk'
+import { selectStatus } from '../../redux/article/article-slice'
 
 import classes from './create-article.module.scss'
 import toArticleParams from './article-form'
 
 export default function CreateArticle() {
   const token = useSelector(selectToken)
+  const status = useSelector(selectStatus)
   const dispatch = useDispatch()
   const {
     register,
@@ -26,7 +29,12 @@ export default function CreateArticle() {
   const onSubmit = (formValue) => {
     dispatch(createArticle({ params: toArticleParams(formValue), token }))
   }
-
+  const history = useHistory()
+  useEffect(() => {
+    if (status === 'succeeded') {
+      history.push('/articles')
+    }
+  }, [status, history])
   return (
     <div className={classes.createArticle}>
       <h4 className={classes.createArticle__title}>Create new article</h4>
