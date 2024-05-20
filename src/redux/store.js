@@ -10,6 +10,7 @@ const store = configureStore({
     article: articleSlice,
     sign: signSlice,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 })
 
 export default store
