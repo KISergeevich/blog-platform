@@ -7,7 +7,7 @@ export default function Tags({ tags }) {
   if (tags.length > 0) {
     sortTags = tags.map((tag) => {
       return (
-        <div key={`${tag}+${Math.round(Math.random() * 100)}`} className={classes.tags__tagPost}>
+        <div key={`${tag}+${Math.round(Math.random() * 10000)}`} className={classes.tags__tagPost}>
           {tag}
         </div>
       )
