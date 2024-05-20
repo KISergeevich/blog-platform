@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { selectToken } from '../../redux/sign/sign-slice'
@@ -14,10 +14,15 @@ export default function CreateArticle() {
   const dispatch = useDispatch()
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'tags',
+  })
   const onSubmit = (formValue) => {
     dispatch(createArticle({ params: toArticleParams(formValue), token }))
   }
@@ -65,21 +70,23 @@ export default function CreateArticle() {
         </label>
         <div className={classes.createArticle__tagBlock}>
           <span className={classes.createArticle__tagTitle}>Tags</span>
-          <div className={classes.createArticle__newTag}>
-            <input type="text" className={classes.createArticle__inputTag} placeholder="Tag" />
-            <button type="button" className={classes.createArticle__buttonDelete}>
-              Delete
-            </button>
-          </div>
-          <div className={classes.createArticle__newTag}>
-            <input type="text" className={classes.createArticle__inputTag} placeholder="Tag" />
-            <button type="button" className={classes.createArticle__buttonDelete}>
-              Delete
-            </button>
-            <button type="button" className={classes.createArticle__addTag}>
-              Add tag
-            </button>
-          </div>
+          {fields.map((field, index) => (
+            <div key={field.id} className={classes.createArticle__itemTag}>
+              <input
+                type="text"
+                key={field.id}
+                {...register(`tags.${index}.value`)}
+                className={classes.createArticle__inputTag}
+                placeholder="Tag"
+              />
+              <button type="button" className={classes.createArticle__buttonDelete} onClick={() => remove(index)}>
+                Delete
+              </button>
+            </div>
+          ))}
+          <button type="button" className={classes.createArticle__addTag} onClick={() => append({ value: '' })}>
+            Add tag
+          </button>
         </div>
         <button type="submit" className={classes.createArticle__submit}>
           Send
