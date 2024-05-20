@@ -6,6 +6,7 @@ import ArticleItem from '../article-item/article-item'
 import fetchArticles from '../../redux/articles/fetch-articles-thunk'
 import {
   changePageNumber,
+  reset,
   selectArticles,
   selectError,
   selectPageNumber,
@@ -27,6 +28,8 @@ export default function ArticleList() {
   const err = useSelector(selectError)
   useEffect(() => {
     dispatch(fetchArticles({ pageNumber, pageSize }))
+
+    return () => dispatch(reset())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const articlesComponent = articles.map((item) => {

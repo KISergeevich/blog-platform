@@ -3,16 +3,17 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import fetchArticles from './fetch-articles-thunk'
 
+const defaultState = {
+  articles: [],
+  pageNumber: 1,
+  pageSize: 5,
+  total: 0,
+  status: 'idle',
+  error: null,
+}
 const articlesSlice = createSlice({
   name: 'articles',
-  initialState: {
-    articles: [],
-    pageNumber: 1,
-    pageSize: 5,
-    total: 0,
-    status: 'idle',
-    error: null,
-  },
+  initialState: defaultState,
   selectors: {
     selectArticles: (state) => state.articles,
     selectTotal: (state) => state.total,
@@ -22,6 +23,9 @@ const articlesSlice = createSlice({
     selectStatus: (state) => state.status,
   },
   reducers: {
+    reset() {
+      return defaultState
+    },
     changeArticles(state, action) {
       return {
         ...state,
@@ -53,7 +57,7 @@ const articlesSlice = createSlice({
   },
 })
 
-export const { changeArticles, changePageNumber } = articlesSlice.actions
+export const { changeArticles, changePageNumber, reset } = articlesSlice.actions
 export const { selectError, selectArticles, selectTotal, selectPageNumber, selectPageSize, selectStatus } =
   articlesSlice.selectors
 export default articlesSlice.reducer
