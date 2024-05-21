@@ -3,11 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import getArticle from './get-article-thunk'
 import createArticle from './create-article-thunk'
+import editArticle from './edit-article-thunk'
 
 const defaultState = {
   article: undefined,
   getArticleStatus: 'idle',
   createArticleStatus: 'idle',
+  editArticleStatus: 'idle',
   error: null,
 }
 
@@ -59,6 +61,17 @@ const articleSlice = createSlice({
       })
       .addCase(createArticle.rejected, (state, action) => {
         state.createArticleStatus = 'failed'
+        state.error = action.error.message
+      })
+      .addCase(editArticle.pending, (state) => {
+        state.editArticleStatus = 'loading'
+      })
+      .addCase(editArticle.fulfilled, (state, action) => {
+        state.editArticleStatus = 'succeeded'
+        state.article = action.payload.article
+      })
+      .addCase(editArticle.rejected, (state, action) => {
+        state.editArticleStatus = 'failed'
         state.error = action.error.message
       })
   },

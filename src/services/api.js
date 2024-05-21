@@ -165,4 +165,27 @@ export default class Api {
       throw new Error(error)
     }
   }
+
+  async editArticle(params, token, slug) {
+    const options = {
+      method: 'PUT',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(toArticleRequest(params)),
+    }
+    try {
+      const response = await fetch(`${this.baseURL}/articles/${slug}`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return toArticle(result.article)
+      }
+      const result = await response.json()
+      throw new Error(result.errors.body[0])
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
 }
