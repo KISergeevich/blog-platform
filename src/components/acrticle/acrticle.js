@@ -7,7 +7,7 @@ import Markdown from 'markdown-to-jsx'
 import grayHeart from '../../assets/img/nonliked.png'
 import AuthorAvatar from '../author-avatar/author-avatar'
 import getArticle from '../../redux/article/get-article-thunk'
-import { deleteStatus, selectArticle, selectError, selectStatus } from '../../redux/article/article-slice'
+import { reset, selectArticle, selectError, selectGetArticleStatus } from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
 
 import classes from './article.module.scss'
@@ -17,14 +17,14 @@ export default function Article() {
   const { slug } = useParams()
 
   const article = useSelector(selectArticle)
-  const status = useSelector(selectStatus)
+  const status = useSelector(selectGetArticleStatus)
   const err = useSelector(selectError)
 
   useEffect(() => {
     dispatch(getArticle(slug))
 
     return () => {
-      dispatch(deleteStatus())
+      dispatch(reset())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

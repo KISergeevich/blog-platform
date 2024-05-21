@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 import { selectToken } from '../../redux/sign/sign-slice'
 import createArticle from '../../redux/article/create-article-thunk'
-import { selectStatus } from '../../redux/article/article-slice'
+import { reset, selectCreateArticleStatus } from '../../redux/article/article-slice'
 
 import classes from './create-article.module.scss'
 import toArticleParams from './article-form'
 
 export default function CreateArticle() {
   const token = useSelector(selectToken)
-  const status = useSelector(selectStatus)
+  const status = useSelector(selectCreateArticleStatus)
   const dispatch = useDispatch()
   const {
     register,
@@ -29,6 +29,13 @@ export default function CreateArticle() {
   const onSubmit = (formValue) => {
     dispatch(createArticle({ params: toArticleParams(formValue), token }))
   }
+
+  useEffect(() => {
+    dispatch(reset())
+    return () => dispatch(reset())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const history = useHistory()
   useEffect(() => {
     if (status === 'succeeded') {
