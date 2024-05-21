@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { Alert, Spin } from 'antd'
 import Markdown from 'markdown-to-jsx'
 
@@ -9,13 +9,14 @@ import AuthorAvatar from '../author-avatar/author-avatar'
 import getArticle from '../../redux/article/get-article-thunk'
 import { reset, selectArticle, selectError, selectGetArticleStatus } from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
+import { selectUser } from '../../redux/sign/sign-slice'
 
 import classes from './article.module.scss'
 
 export default function Article() {
   const dispatch = useDispatch()
   const { slug } = useParams()
-
+  const user = useSelector(selectUser)
   const article = useSelector(selectArticle)
   const status = useSelector(selectGetArticleStatus)
   const err = useSelector(selectError)
@@ -60,7 +61,20 @@ export default function Article() {
             <AuthorAvatar author={author} postDate={createdAt} />
           </div>
         </div>
-        <div className={classes.article__description}>{chekedDescription}</div>
+        <div className={classes.article__descriptionBlock}>
+          <div className={classes.article__description}>{chekedDescription}</div>
+          {user !== undefined && author.username === user.username ? (
+            <>
+              <button type="button" className={classes.article__deleteArticle}>
+                Delete
+              </button>
+              <Link to={`/articles/${slug}/edit`} className={classes.article__editArticle}>
+                Edit
+              </Link>
+            </>
+          ) : null}
+        </div>
+
         <Markdown className={classes.article__text}>{chekedBody}</Markdown>
       </div>
     )

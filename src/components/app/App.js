@@ -37,6 +37,7 @@ export default function App() {
         <Route path="/sign-up" component={SignUp} />
         <Route path="/profile" component={Profile} />
         <Route path="/new-article" component={CreateArticle} />
+        <Route path="/articles/:slug/edit" component={CreateArticle} />
       </div>
     </Router>
   )

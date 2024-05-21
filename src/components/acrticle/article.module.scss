@@ -55,6 +55,11 @@
         max-height: 70px;
         overflow-wrap: break-word;
         overflow-y: auto;
+        flex-grow: 1;
+    }
+    &__descriptionBlock {
+        display: flex;
+        justify-content: space-between;
     }
     &__description::-webkit-scrollbar {
         display: none;
@@ -66,5 +71,47 @@
     &__text {
         margin-top: 20px;
         overflow-wrap: break-word;
+    }
+    &__deleteArticle {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        border-radius: 5px;
+        border: 1px solid #F5222D;
+        background-color: white;
+        color: #F5222D;
+        padding: 5px 10px;
+        margin-right: 10px;
+    }
+    &__editArticle {
+        font-size: 13.33px;
+        border-radius: 5px;
+        border: 1px solid #52C41A;
+        background-color: white;
+        color: #52C41A;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
+    &__deleteArticle:hover, &__deleteArticle:focus,{
+        transition-duration: 0.5s;
+        background-color: #F5222D;
+        color: white;
+    }
+    &__deleteArticle:active {
+        transition-duration: 0.5s;
+        background-color: white;
+        color: #F5222D;
+    }
+    &__editArticle:hover, &__editArticle:focus,{
+        transition-duration: 0.5s;
+        background-color: #52C41A;
+        color: white;
+    }
+    &__editArticle:active {
+        transition-duration: 0.5s;
+        background-color: white;
+        color: #52C41A;
     }
 }
