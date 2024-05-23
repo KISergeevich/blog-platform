@@ -65,6 +65,12 @@
         color: black;
         margin-top: 20px;
     }
+    &__tags {
+        display: flex;
+    }
+    &__tagInputs {
+        flex-shrink: 0;
+    }
     &__inputTag {
         width: 300px;
         height: 40px;
@@ -93,6 +99,9 @@
         border: 1px solid #1890FF;
         color: #1890FF;
         background-color: white;
+        align-self: flex-end;
+        flex-shrink: 0;
+        margin-bottom: 5px;
     }
     &__submit {
         width: 320px;

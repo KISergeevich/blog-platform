@@ -85,23 +85,27 @@ export default function CreateArticle() {
         </label>
         <div className={classes.createArticle__tagBlock}>
           <span className={classes.createArticle__tagTitle}>Tags</span>
-          {fields.map((field, index) => (
-            <div key={field.id} className={classes.createArticle__itemTag}>
-              <input
-                type="text"
-                key={field.id}
-                {...register(`tags.${index}.value`)}
-                className={classes.createArticle__inputTag}
-                placeholder="Tag"
-              />
-              <button type="button" className={classes.createArticle__buttonDelete} onClick={() => remove(index)}>
-                Delete
-              </button>
+          <div className={classes.createArticle__tags}>
+            <div className={classes.createArticle__tagInputs}>
+              {fields.map((field, index) => (
+                <div key={field.id} className={classes.createArticle__itemTag}>
+                  <input
+                    type="text"
+                    key={field.id}
+                    {...register(`tags.${index}.value`)}
+                    className={classes.createArticle__inputTag}
+                    placeholder="Tag"
+                  />
+                  <button type="button" className={classes.createArticle__buttonDelete} onClick={() => remove(index)}>
+                    Delete
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
-          <button type="button" className={classes.createArticle__addTag} onClick={() => append({ value: '' })}>
-            Add tag
-          </button>
+            <button type="button" className={classes.createArticle__addTag} onClick={() => append({ value: '' })}>
+              Add tag
+            </button>
+          </div>
         </div>
         <button type="submit" className={classes.createArticle__submit}>
           Send
