@@ -20,16 +20,17 @@ const articleSlice = createSlice({
     selectArticle: (state) => state.article,
     selectGetArticleStatus: (state) => state.getArticleStatus,
     selectCreateArticleStatus: (state) => state.createArticleStatus,
+    selectEditArticleStatus: (state) => state.editArticleStatus,
     selectError: (state) => state.error,
   },
   reducers: {
     reset() {
-      return defaultState
+      return { ...defaultState }
     },
     changeArticle(state, action) {
       return {
         ...state,
-        article: action.payload.article,
+        article: action.payload,
       }
     },
     deleteStatus(state) {
@@ -78,5 +79,11 @@ const articleSlice = createSlice({
 })
 
 export const { reset, changeArticle, deleteStatus } = articleSlice.actions
-export const { selectArticle, selectGetArticleStatus, selectCreateArticleStatus, selectError } = articleSlice.selectors
+export const {
+  selectArticle,
+  selectGetArticleStatus,
+  selectCreateArticleStatus,
+  selectEditArticleStatus,
+  selectError,
+} = articleSlice.selectors
 export default articleSlice.reducer

@@ -2,31 +2,59 @@
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
 
 import { selectToken } from '../../redux/sign/sign-slice'
 import createArticle from '../../redux/article/create-article-thunk'
-import { reset, selectCreateArticleStatus } from '../../redux/article/article-slice'
+import {
+  changeArticle,
+  reset,
+  selectArticle,
+  selectCreateArticleStatus,
+  selectEditArticleStatus,
+} from '../../redux/article/article-slice'
+import getArticle from '../../redux/article/get-article-thunk'
+import editArticle from '../../redux/article/edit-article-thunk'
 
 import classes from './create-article.module.scss'
-import toArticleParams from './article-form'
+import { toArticleParams, toArticleForm } from './article-form'
 
 export default function CreateArticle() {
   const token = useSelector(selectToken)
-  const status = useSelector(selectCreateArticleStatus)
+  const statusCreate = useSelector(selectCreateArticleStatus)
+  const statusEdit = useSelector(selectEditArticleStatus)
   const dispatch = useDispatch()
+  const { slug } = useParams()
+  useEffect(() => {
+    if (slug !== undefined) {
+      dispatch(getArticle(slug))
+    } else {
+      dispatch(changeArticle(undefined))
+    }
+
+    return () => {
+      dispatch(reset())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const article = useSelector(selectArticle)
+  const isEditing = slug !== undefined && article !== undefined
+  const defaultformValue = isEditing
+    ? toArticleForm(article)
+    : {
+        title: '',
+        description: '',
+        text: '',
+        tags: [{ value: '' }],
+      }
+
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      title: '',
-      description: '',
-      text: '',
-      tags: [{ value: '' }],
-    },
+    defaultValues: defaultformValue,
   })
 
   const { fields, append, remove } = useFieldArray({
@@ -34,7 +62,11 @@ export default function CreateArticle() {
     name: 'tags',
   })
   const onSubmit = (formValue) => {
-    dispatch(createArticle({ params: toArticleParams(formValue), token }))
+    if (isEditing) {
+      dispatch(editArticle({ params: toArticleParams(formValue), token, slug }))
+    } else {
+      dispatch(createArticle({ params: toArticleParams(formValue), token }))
+    }
   }
 
   useEffect(() => {
@@ -45,13 +77,13 @@ export default function CreateArticle() {
 
   const history = useHistory()
   useEffect(() => {
-    if (status === 'succeeded') {
+    if (statusCreate === 'succeeded' || statusEdit === 'succeeded') {
       history.push('/articles')
     }
-  }, [status, history])
+  }, [statusCreate, statusEdit, history])
   return (
     <div className={classes.createArticle}>
-      <h4 className={classes.createArticle__title}>Create new article</h4>
+      <h4 className={classes.createArticle__title}>{isEditing ? 'Edit article' : 'Create new article'}</h4>
       <form className={classes.createArticle__form} onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.createArticle__label} htmlFor="title">
           Title

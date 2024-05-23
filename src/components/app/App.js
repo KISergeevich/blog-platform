@@ -32,7 +32,7 @@ export default function App() {
       <div className={classes.app__body}>
         <Route path="/" exact component={ArticleList} />
         <Route path="/articles" exact component={ArticleList} />
-        <Route path="/articles/:slug" component={Article} />
+        <Route path="/articles/:slug" exact component={Article} />
         <Route path="/sign-in" component={SignIn} />
         <Route path="/sign-up" component={SignUp} />
         <Route path="/profile" component={Profile} />
