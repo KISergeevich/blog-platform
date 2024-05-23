@@ -20,7 +20,14 @@ export default function CreateArticle() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      title: '',
+      description: '',
+      text: '',
+      tags: [{ value: '' }],
+    },
+  })
 
   const { fields, append, remove } = useFieldArray({
     control,
