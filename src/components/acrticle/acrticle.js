@@ -7,16 +7,12 @@ import Markdown from 'markdown-to-jsx'
 import grayHeart from '../../assets/img/nonliked.png'
 import AuthorAvatar from '../author-avatar/author-avatar'
 import getArticle from '../../redux/article/get-article-thunk'
-import {
-  reset,
-  selectArticle,
-  selectDeleteArticleStatus,
-  selectError,
-  selectGetArticleStatus,
-} from '../../redux/article/article-slice'
+import { reset, selectArticle, selectError, selectGetArticleStatus } from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
 import { selectToken, selectUser } from '../../redux/sign/sign-slice'
 import deleteArticle from '../../redux/article/delete-article-thunk'
+import { selectPageNumber, selectPageSize } from '../../redux/articles/articles-slice'
+import fetchArticles from '../../redux/articles/fetch-articles-thunk'
 
 import classes from './article.module.scss'
 
@@ -29,8 +25,8 @@ export default function Article() {
   const err = useSelector(selectError)
   const token = useSelector(selectToken)
   const history = useHistory()
-  const deleteStatus = useSelector(selectDeleteArticleStatus)
-
+  const pageNumber = useSelector(selectPageNumber)
+  const pageSize = useSelector(selectPageSize)
   useEffect(() => {
     dispatch(getArticle(slug))
 
@@ -42,10 +38,11 @@ export default function Article() {
 
   const confirm = () => {
     dispatch(deleteArticle({ slug, token }))
-    if (deleteStatus === 'succeeded') {
-      dispatch(reset())
-      history.push('/articles')
-    }
+
+    dispatch(reset())
+    dispatch(fetchArticles({ pageNumber, pageSize }))
+    history.push('/articles')
+
     message.success('You have successfully deleted your post')
   }
 
