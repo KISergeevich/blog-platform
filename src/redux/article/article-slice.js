@@ -4,12 +4,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import getArticle from './get-article-thunk'
 import createArticle from './create-article-thunk'
 import editArticle from './edit-article-thunk'
+import deleteArticle from './delete-article-thunk'
 
 const defaultState = {
   article: undefined,
   getArticleStatus: 'idle',
   createArticleStatus: 'idle',
   editArticleStatus: 'idle',
+  deleteArticleStatus: 'idle',
   error: null,
 }
 
@@ -21,6 +23,7 @@ const articleSlice = createSlice({
     selectGetArticleStatus: (state) => state.getArticleStatus,
     selectCreateArticleStatus: (state) => state.createArticleStatus,
     selectEditArticleStatus: (state) => state.editArticleStatus,
+    selectDeleteArticleStatus: (state) => state.deleteArticleStatus,
     selectError: (state) => state.error,
   },
   reducers: {
@@ -75,6 +78,16 @@ const articleSlice = createSlice({
         state.editArticleStatus = 'failed'
         state.error = action.error.message
       })
+      .addCase(deleteArticle.pending, (state) => {
+        state.deleteArticleStatus = 'loading'
+      })
+      .addCase(deleteArticle.fulfilled, (state) => {
+        state.deleteArticleStatus = 'succeeded'
+      })
+      .addCase(deleteArticle.rejected, (state, action) => {
+        state.deleteArticleStatus = 'failed'
+        state.error = action.error.message
+      })
   },
 })
 
@@ -84,6 +97,7 @@ export const {
   selectGetArticleStatus,
   selectCreateArticleStatus,
   selectEditArticleStatus,
+  selectDeleteArticleStatus,
   selectError,
 } = articleSlice.selectors
 export default articleSlice.reducer

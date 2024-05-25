@@ -1,15 +1,22 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom/cjs/react-router-dom.min'
-import { Alert, Spin } from 'antd'
+import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { Alert, Spin, message, Popconfirm } from 'antd'
 import Markdown from 'markdown-to-jsx'
 
 import grayHeart from '../../assets/img/nonliked.png'
 import AuthorAvatar from '../author-avatar/author-avatar'
 import getArticle from '../../redux/article/get-article-thunk'
-import { reset, selectArticle, selectError, selectGetArticleStatus } from '../../redux/article/article-slice'
+import {
+  reset,
+  selectArticle,
+  selectDeleteArticleStatus,
+  selectError,
+  selectGetArticleStatus,
+} from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
-import { selectUser } from '../../redux/sign/sign-slice'
+import { selectToken, selectUser } from '../../redux/sign/sign-slice'
+import deleteArticle from '../../redux/article/delete-article-thunk'
 
 import classes from './article.module.scss'
 
@@ -20,6 +27,9 @@ export default function Article() {
   const article = useSelector(selectArticle)
   const status = useSelector(selectGetArticleStatus)
   const err = useSelector(selectError)
+  const token = useSelector(selectToken)
+  const history = useHistory()
+  const deleteStatus = useSelector(selectDeleteArticleStatus)
 
   useEffect(() => {
     dispatch(getArticle(slug))
@@ -29,6 +39,15 @@ export default function Article() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const confirm = () => {
+    dispatch(deleteArticle({ slug, token }))
+    if (deleteStatus === 'succeeded') {
+      dispatch(reset())
+      history.push('/articles')
+    }
+    message.success('You have successfully deleted your post')
+  }
 
   if (status === 'loading') {
     return (
@@ -65,9 +84,18 @@ export default function Article() {
           <div className={classes.article__description}>{chekedDescription}</div>
           {user !== undefined && author.username === user.username ? (
             <>
-              <button type="button" className={classes.article__deleteArticle}>
-                Delete
-              </button>
+              <Popconfirm
+                title="Delete the task"
+                description="Are you sure to delete this article?"
+                onConfirm={() => confirm(slug, token)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <button type="button" className={classes.article__deleteArticle}>
+                  Delete
+                </button>
+              </Popconfirm>
+
               <Link to={`/articles/${slug}/edit`} className={classes.article__editArticle}>
                 Edit
               </Link>

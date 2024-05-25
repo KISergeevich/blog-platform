@@ -88,6 +88,7 @@ export default function CreateArticle() {
         <label className={classes.createArticle__label} htmlFor="title">
           Title
           <input
+            type="text"
             {...register('title', { required: true })}
             className={classes.createArticle__input}
             id="title"
@@ -101,6 +102,7 @@ export default function CreateArticle() {
         <label className={classes.createArticle__label} htmlFor="description">
           Short description
           <input
+            type="text"
             {...register('description', { required: true })}
             className={classes.createArticle__input}
             id="description"

@@ -188,4 +188,26 @@ export default class Api {
       throw new Error(error)
     }
   }
+
+  async deleteArticle(slug, token) {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    }
+    try {
+      const response = await fetch(`${this.baseURL}articles/${slug}`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return result
+      }
+      const result = await response.json()
+      throw new Error(result.errors.body[0])
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
 }
