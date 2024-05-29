@@ -5,9 +5,17 @@ import { Alert, Spin, message, Popconfirm } from 'antd'
 import Markdown from 'markdown-to-jsx'
 
 import grayHeart from '../../assets/img/nonliked.png'
+import redHeart from '../../assets/img/liked.png'
 import AuthorAvatar from '../author-avatar/author-avatar'
 import getArticle from '../../redux/article/get-article-thunk'
-import { reset, selectArticle, selectError, selectGetArticleStatus } from '../../redux/article/article-slice'
+import {
+  likeArticle,
+  reset,
+  selectArticle,
+  selectError,
+  selectGetArticleStatus,
+  unLikeArticle,
+} from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
 import { selectToken, selectUser } from '../../redux/sign/sign-slice'
 import deleteArticle from '../../redux/article/delete-article-thunk'
@@ -46,6 +54,13 @@ export default function Article() {
     message.success('You have successfully deleted your post')
   }
 
+  const onLike = () => {
+    dispatch(likeArticle({ slug, token }))
+  }
+  const unLike = () => {
+    dispatch(unLikeArticle({ slug, token }))
+  }
+
   if (status === 'loading') {
     return (
       <div className={classes.spinBlock}>
@@ -54,7 +69,7 @@ export default function Article() {
     )
   }
   if (status === 'succeeded') {
-    const { tags, author, createdAt, title, description, body } = article
+    const { tags, author, createdAt, title, description, body, favorited } = article
     const chekedTitle = title === null || title.trim() === '' ? 'Title Post' : title
     const chekedDescription = description === null ? '' : description
     const chekedBody = body === null ? '' : body
@@ -65,8 +80,8 @@ export default function Article() {
             <div className={classes.article__titlePost}>
               <div className={classes.article__title}>{chekedTitle}</div>
               <form className={classes.article__form}>
-                <button className={classes.article__button} type="button">
-                  <img src={grayHeart} alt="notLiked" className={classes.article__like} />
+                <button onClick={favorited ? unLike : onLike} className={classes.article__button} type="button">
+                  <img src={favorited ? redHeart : grayHeart} alt="notLiked" className={classes.article__like} />
                 </button>
               </form>
               <span className={classes.articleItem__span}>{article.favoritesCount}</span>

@@ -15,12 +15,26 @@ export default class Api {
 
   async getArticles(pageNumber, pageSize) {
     const offset = (pageNumber - 1) * pageSize
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-      },
+    const token = localStorage.getItem('token')
+    let options
+    if (token !== undefined) {
+      options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      }
+    } else {
+      options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+        },
+      }
     }
+
     try {
       const response = await fetch(`${this.baseURL}articles?offset=${offset}&limit=${pageSize}`, options)
       if (response.ok) {
@@ -37,11 +51,24 @@ export default class Api {
   }
 
   async getArticle(slug) {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-      },
+    const token = localStorage.getItem('token')
+    let options
+    if (token !== undefined) {
+      options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      }
+    } else {
+      options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+        },
+      }
     }
     try {
       const response = await fetch(`${this.baseURL}articles/${slug}`, options)
@@ -203,6 +230,50 @@ export default class Api {
       if (response.ok) {
         const result = await response.json()
         return result
+      }
+      const result = await response.json()
+      throw new Error(result.errors.body[0])
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  async likeArticle(slug, token) {
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    }
+    try {
+      const response = await fetch(`${this.baseURL}articles/${slug}/favorite`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return toArticle(result.article)
+      }
+      const result = await response.json()
+      throw new Error(result.errors.body[0])
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  async unLikeArticle(slug, token) {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    }
+    try {
+      const response = await fetch(`${this.baseURL}articles/${slug}/favorite`, options)
+      if (response.ok) {
+        const result = await response.json()
+        return toArticle(result.article)
       }
       const result = await response.json()
       throw new Error(result.errors.body[0])

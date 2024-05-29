@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
+import Api from '../../services/api'
 
 import getArticle from './get-article-thunk'
 import createArticle from './create-article-thunk'
@@ -41,6 +43,10 @@ const articleSlice = createSlice({
         ...state,
         status: 'idle',
       }
+    },
+    updateLikes(state, action) {
+      state.article.favorited = action.payload.favorited
+      state.article.favoritesCount = action.payload.favoritesCount
     },
   },
   extraReducers(builder) {
@@ -91,7 +97,7 @@ const articleSlice = createSlice({
   },
 })
 
-export const { reset, changeArticle, deleteStatus } = articleSlice.actions
+export const { reset, changeArticle, deleteStatus, updateLikes } = articleSlice.actions
 export const {
   selectArticle,
   selectGetArticleStatus,
@@ -101,3 +107,17 @@ export const {
   selectError,
 } = articleSlice.selectors
 export default articleSlice.reducer
+
+export const likeArticle = createAsyncThunk('likeArticle/likeArticle', async ({ slug, token }, { dispatch }) => {
+  const api = new Api()
+  const favoriteArticle = await api.likeArticle(slug, token)
+  dispatch(updateLikes(favoriteArticle))
+  return favoriteArticle
+})
+
+export const unLikeArticle = createAsyncThunk('unLikeArticle/unLikeArticle', async ({ slug, token }, { dispatch }) => {
+  const api = new Api()
+  const unFavoriteArticle = await api.unLikeArticle(slug, token)
+  dispatch(updateLikes(unFavoriteArticle))
+  return unFavoriteArticle
+})

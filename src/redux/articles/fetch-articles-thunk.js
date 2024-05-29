@@ -4,7 +4,7 @@ import Api from '../../services/api'
 
 const fetchArticles = createAsyncThunk('articles/fetchArticles', async (payload) => {
   const api = new Api()
-  const response = await api.getArticles(payload.pageNumber, payload.pageSize)
+  const response = await api.getArticles(payload.pageNumber, payload.pageSize, payload.token)
   return response
 })
 

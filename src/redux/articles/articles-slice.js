@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
+import Api from '../../services/api'
 
 import fetchArticles from './fetch-articles-thunk'
 
@@ -39,6 +41,14 @@ const articlesSlice = createSlice({
         pageNumber: action.payload,
       }
     },
+    updateLikes(state, action) {
+      const { slug, favorited, favoritesCount } = action.payload
+      const articleToUpdate = state.articles.find((item) => item.slug === slug)
+      if (articleToUpdate) {
+        articleToUpdate.favorited = favorited
+        articleToUpdate.favoritesCount = favoritesCount
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -57,7 +67,24 @@ const articlesSlice = createSlice({
   },
 })
 
-export const { changeArticles, changePageNumber, reset } = articlesSlice.actions
+export const { changeArticles, changePageNumber, updateLikes, reset } = articlesSlice.actions
 export const { selectError, selectArticles, selectTotal, selectPageNumber, selectPageSize, selectStatus } =
   articlesSlice.selectors
 export default articlesSlice.reducer
+
+export const likeArticles = createAsyncThunk('likeArticles/likeArticles', async ({ slug, token }, { dispatch }) => {
+  const api = new Api()
+  const favoriteArticles = await api.likeArticle(slug, token)
+  dispatch(updateLikes(favoriteArticles))
+  return favoriteArticles
+})
+
+export const unLikeArticles = createAsyncThunk(
+  'unLikeArticles/unLikeArticles',
+  async ({ slug, token }, { dispatch }) => {
+    const api = new Api()
+    const unFavoriteArticles = await api.unLikeArticle(slug, token)
+    dispatch(updateLikes(unFavoriteArticles))
+    return unFavoriteArticles
+  }
+)
