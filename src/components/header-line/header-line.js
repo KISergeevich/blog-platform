@@ -26,8 +26,11 @@ export default function HeaderLine() {
             <div className={classes.headerLine__username}>{user.username}</div>
             <img
               className={classes.headerLine__logo}
-              src={user.image === undefined ? icon : user.image}
+              src={user.image}
               alt="userLogo"
+              onError={(e) => {
+                e.target.src = icon
+              }}
             />
           </Link>
           <button onClick={() => dispatch(deleteToken())} className={classes.headerLine__logOut} type="button">

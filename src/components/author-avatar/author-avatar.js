@@ -7,12 +7,6 @@ import classes from './author-avatar.module.scss'
 
 export default function AuthorAvatar({ author, postDate }) {
   const timeCreate = format(new Date(postDate), 'MMMM d, y')
-  let avatar
-  if (author.image.length > 0) {
-    avatar = author.image
-  } else {
-    avatar = icon
-  }
 
   return (
     <div className={classes.authorAvatar__userBlock}>
@@ -20,7 +14,14 @@ export default function AuthorAvatar({ author, postDate }) {
         <div className={classes.authorAvatar__name}>{author.username}</div>
         <div className={classes.authorAvatar__data}>{timeCreate}</div>
       </div>
-      <img src={avatar} alt="icon-logo" className={classes.authorAvatar__icon} />
+      <img
+        src={author.image}
+        alt="icon-logo"
+        className={classes.authorAvatar__icon}
+        onError={(e) => {
+          e.target.src = icon
+        }}
+      />
     </div>
   )
 }
