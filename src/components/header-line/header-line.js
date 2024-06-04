@@ -1,15 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux'
 
 import icon from '../../assets/img/icon.png'
-import { deleteToken, selectIsSignedIn, selectUser } from '../../redux/sign/sign-slice'
+import { changeLogInStatus, deleteToken, selectIsSignedIn, selectUser } from '../../redux/sign/sign-slice'
 
 import classes from './header-line.module.scss'
 
 export default function HeaderLine() {
   const dispatch = useDispatch()
+  const history = useHistory()
   const isSignedIn = useSelector(selectIsSignedIn)
+
+  const logOut = () => {
+    dispatch(deleteToken())
+    dispatch(changeLogInStatus())
+    history.push('/articles')
+  }
 
   const user = useSelector(selectUser)
   return (
@@ -33,7 +40,7 @@ export default function HeaderLine() {
               }}
             />
           </Link>
-          <button onClick={() => dispatch(deleteToken())} className={classes.headerLine__logOut} type="button">
+          <button onClick={logOut} className={classes.headerLine__logOut} type="button">
             Log Out
           </button>
         </div>

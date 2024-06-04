@@ -17,7 +17,7 @@ import {
   unLikeArticle,
 } from '../../redux/article/article-slice'
 import Tags from '../tags/tags'
-import { selectToken, selectUser } from '../../redux/sign/sign-slice'
+import { selectLogInStatus, selectToken, selectUser } from '../../redux/sign/sign-slice'
 import deleteArticle from '../../redux/article/delete-article-thunk'
 import { selectPageNumber, selectPageSize } from '../../redux/articles/articles-slice'
 import fetchArticles from '../../redux/articles/fetch-articles-thunk'
@@ -35,6 +35,8 @@ export default function Article() {
   const history = useHistory()
   const pageNumber = useSelector(selectPageNumber)
   const pageSize = useSelector(selectPageSize)
+  const loggedIn = useSelector(selectLogInStatus)
+
   useEffect(() => {
     dispatch(getArticle(slug))
 
@@ -80,9 +82,15 @@ export default function Article() {
             <div className={classes.article__titlePost}>
               <div className={classes.article__title}>{chekedTitle}</div>
               <form className={classes.article__form}>
-                <button onClick={favorited ? unLike : onLike} className={classes.article__button} type="button">
-                  <img src={favorited ? redHeart : grayHeart} alt="notLiked" className={classes.article__like} />
-                </button>
+                {loggedIn ? (
+                  <button onClick={favorited ? unLike : onLike} className={classes.article__button} type="button">
+                    <img src={favorited ? redHeart : grayHeart} alt="notLiked" className={classes.article__like} />
+                  </button>
+                ) : (
+                  <button className={classes.article__button} type="button">
+                    <img src={grayHeart} alt="notLiked" className={classes.article__like} />
+                  </button>
+                )}
               </form>
               <span className={classes.articleItem__span}>{article.favoritesCount}</span>
             </div>

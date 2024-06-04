@@ -3,15 +3,16 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Spin } from 'antd'
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 
-import { selectStatus, selectUser, updateProfile } from '../../redux/sign/sign-slice'
+import { selectLogInStatus, selectStatus, selectUser, updateProfile } from '../../redux/sign/sign-slice'
 
 import classes from './profile.module.scss'
 
 export default function Profile() {
   const user = useSelector(selectUser)
   const status = useSelector(selectStatus)
-
+  const loggedIn = useSelector(selectLogInStatus)
   const dispatch = useDispatch()
   const {
     register,
@@ -29,7 +30,7 @@ export default function Profile() {
     dispatch(updateProfile({ user: userSubmit, token: user.token }))
   }
 
-  if (user !== undefined) {
+  if (loggedIn) {
     return (
       <div className={classes.profile}>
         <h4 className={classes.profile__title}>Edit Profile</h4>
@@ -123,5 +124,5 @@ export default function Profile() {
       </div>
     )
   }
-  return <Spin size="large" className={classes.spin} />
+  return <Redirect to="/" />
 }

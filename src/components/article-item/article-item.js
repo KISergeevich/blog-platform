@@ -3,7 +3,7 @@ import Markdown from 'markdown-to-jsx'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { selectToken } from '../../redux/sign/sign-slice'
+import { selectLogInStatus, selectToken } from '../../redux/sign/sign-slice'
 import grayHeart from '../../assets/img/nonliked.png'
 import redHeart from '../../assets/img/liked.png'
 import Tags from '../tags/tags'
@@ -16,6 +16,8 @@ export default function ArticleItem({ article }) {
   const { tags, favorited, slug } = article
   const { author, description, title } = article
   const token = useSelector(selectToken)
+  const loggedIn = useSelector(selectLogInStatus)
+
   const chekedDescription = description === null ? '' : description
   const chekedTitle = title === null || title.trim() === '' ? 'Title Post' : title
   const dispatch = useDispatch()
@@ -36,9 +38,15 @@ export default function ArticleItem({ article }) {
               {chekedTitle}
             </Link>
             <form className={classes.articleItem__form}>
-              <button onClick={handleLike} className={classes.articleItem__button} type="button">
-                <img src={favorited ? redHeart : grayHeart} alt="like" className={classes.articleItem__like} />
-              </button>
+              {loggedIn ? (
+                <button onClick={handleLike} className={classes.articleItem__button} type="button">
+                  <img src={favorited ? redHeart : grayHeart} alt="like" className={classes.articleItem__like} />
+                </button>
+              ) : (
+                <button className={classes.articleItem__button} type="button">
+                  <img src={grayHeart} alt="like" className={classes.articleItem__like} />
+                </button>
+              )}
             </form>
             <span className={classes.articleItem__span}>{article.favoritesCount}</span>
           </div>

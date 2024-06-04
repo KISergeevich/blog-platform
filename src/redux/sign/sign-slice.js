@@ -10,11 +10,12 @@ const signSlice = createSlice({
   name: 'sign',
   initialState: {
     user: undefined,
-
+    loggedIn: false,
     status: 'idle',
     error: null,
   },
   selectors: {
+    selectLogInStatus: (state) => state.loggedIn,
     selectStatus: (state) => state.status,
     selectError: (state) => state.error,
     selectUser: (state) => state.user,
@@ -22,6 +23,9 @@ const signSlice = createSlice({
     selectIsSignedIn: (state) => state.user !== undefined,
   },
   reducers: {
+    changeLogInStatus(state) {
+      state.loggedIn = false
+    },
     changeUser(state, action) {
       return {
         ...state,
@@ -57,6 +61,7 @@ const signSlice = createSlice({
       .addCase(fetchSignIn.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.user = action.payload
+        state.loggedIn = true
       })
       .addCase(fetchSignIn.rejected, (state, action) => {
         state.status = 'failed'
@@ -68,6 +73,7 @@ const signSlice = createSlice({
       .addCase(fetchSignUp.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.user = action.payload
+        state.loggedIn = true
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
         state.status = 'failed'
@@ -86,8 +92,9 @@ const signSlice = createSlice({
   },
 })
 
-export const { changeStatus, changeError, changeUser, changeErrorUserLogOut } = signSlice.actions
-export const { selectError, selectStatus, selectUser, selectToken, selectIsSignedIn } = signSlice.selectors
+export const { changeStatus, changeError, changeUser, changeErrorUserLogOut, changeLogInStatus } = signSlice.actions
+export const { selectError, selectStatus, selectUser, selectLogInStatus, selectToken, selectIsSignedIn } =
+  signSlice.selectors
 export default signSlice.reducer
 
 // этот вариант написания тоже работает как вариант использования танки внутри слайса

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import HeaderLine from '../header-line/header-line'
@@ -28,16 +28,18 @@ export default function App() {
       <div className={classes.app__header}>
         <HeaderLine />
       </div>
-
       <div className={classes.app__body}>
-        <Route path="/" exact component={ArticleList} />
-        <Route path="/articles" exact component={ArticleList} />
-        <Route path="/articles/:slug" exact component={Article} />
-        <Route path="/sign-in" component={SignIn} />
-        <Route path="/sign-up" component={SignUp} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/new-article" component={CreateArticle} />
-        <Route path="/articles/:slug/edit" component={CreateArticle} />
+        <Switch>
+          <Route path="/" exact component={ArticleList} />
+          <Route path="/articles" exact component={ArticleList} />
+          <Route path="/articles/:slug" exact component={Article} />
+          <Route path="/sign-in" component={SignIn} />
+          <Route path="/sign-up" component={SignUp} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/new-article" component={CreateArticle} />
+          <Route path="/articles/:slug/edit" component={CreateArticle} />
+          <Redirect to="/" />
+        </Switch>
       </div>
     </Router>
   )
