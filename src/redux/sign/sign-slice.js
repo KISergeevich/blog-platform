@@ -84,6 +84,7 @@ const signSlice = createSlice({
       })
       .addCase('curentUser/fetchCurentUser/fulfilled', (state) => {
         state.status = 'succeeded'
+        state.loggedIn = true
       })
       .addCase('curentUser/fetchCurentUser/rejected', (state, action) => {
         state.status = 'failed'

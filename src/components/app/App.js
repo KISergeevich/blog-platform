@@ -13,6 +13,13 @@ import CreateArticle from '../create-article/create-article'
 
 import classes from './app.module.scss'
 
+const routPathArticles = '/articles'
+const routPathArticle = '/articles/:slug'
+const routPathSignIn = '/sign-in'
+const routPathSignUp = '/sign-up'
+const routPathProfile = '/profile'
+const routPathNewArticle = '/new-article'
+
 export default function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -31,13 +38,13 @@ export default function App() {
       <div className={classes.app__body}>
         <Switch>
           <Route path="/" exact component={ArticleList} />
-          <Route path="/articles" exact component={ArticleList} />
-          <Route path="/articles/:slug" exact component={Article} />
-          <Route path="/sign-in" component={SignIn} />
-          <Route path="/sign-up" component={SignUp} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/new-article" component={CreateArticle} />
-          <Route path="/articles/:slug/edit" component={CreateArticle} />
+          <Route path={routPathArticles} exact component={ArticleList} />
+          <Route path={routPathArticle} exact component={Article} />
+          <Route path={routPathSignIn} component={SignIn} />
+          <Route path={routPathSignUp} component={SignUp} />
+          <Route path={routPathProfile} component={Profile} />
+          <Route path={routPathNewArticle} component={CreateArticle} />
+          <Route path={`${routPathArticle}/edit`} component={CreateArticle} />
           <Redirect to="/" />
         </Switch>
       </div>
