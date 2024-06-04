@@ -43,7 +43,6 @@
         padding: 10px;
         border: 1px solid #BFBFBF;
         border-radius: 4px;
-        color:#D9D9D9;
     }
     &__checkboxBlock {
         border-top: 1px solid #D9D9D9;
@@ -114,10 +113,10 @@
     outline: none;
 }
 
-input[type="text"]::placeholder {
+input::placeholder {
     color: #D9D9D9;
   }
   
-  input[type="text"]:not(:placeholder-shown) {
-    color: black;
+  input:not(:placeholder-shown) {
+    color: #1890FF;
 }
