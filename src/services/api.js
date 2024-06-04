@@ -97,9 +97,13 @@ export default class Api {
         const result = await response.json()
         return result.user
       }
-      throw new Error('Sign Up error!')
+      const result = await response.json()
+      const [key, value] = Object.entries(result.errors)[0]
+      const message = `${key} ${value}`
+
+      throw new Error(message)
     } catch (error) {
-      throw new Error(error.message)
+      throw new Error(error)
     }
   }
 
